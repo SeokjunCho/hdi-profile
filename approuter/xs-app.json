@@ -1,0 +1,8 @@
+{
+  "welcomeFile": "comhdimyProfile/",
+  "authenticationMethod": "none",
+  "logout": {
+    "logoutEndpoint": "/do/logout"
+  },
+  "routes": []
+}
