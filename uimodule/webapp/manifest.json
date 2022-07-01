@@ -33,6 +33,12 @@
   },
   "sap.ui5": {
     "flexEnabled": true,
+    "rootView": {
+      "viewName": "com.hdi.myProfile.view.AppMain",
+      "type": "XML",
+      "async": true,
+      "id": "idAppControl"
+  },
     "dependencies": {
       "minUI5Version": "1.60.0",
       "libs": {
@@ -66,33 +72,40 @@
         "async": true,
         "viewPath": "com.hdi.myProfile.view",
         "controlAggregation": "pages",
-        "controlId": "app",
-        "clearControlAggregation": false
+        "controlId": "idAppControl",
+        "clearControlAggregation": false,
+        "bypassed": {
+          "target": ["NotFound"]
+        }
       },
       "routes": [
         {
-          "name": "RouteMainView",
+          "pattern": "",
+          "name": "default",
+          "target": ["Result"]
+        },
+        {
+          "name": "Result",
           "pattern": ":?query:",
           "target": [
-            "TargetMainView"
+            "Result"
           ]
         }
       ],
       "targets": {
-        "TargetMainView": {
-          "viewType": "XML",
-          "transition": "slide",
-          "clearControlAggregation": false,
-          "viewId": "MainView",
-          "viewName": "MainView"
-        }
+        "Result": {
+          "viewId" : "Result",
+          "viewName" : "Result",
+          "viewLevel": 1,
+          "controlId": "pageContainer",
+          "controlAggregation": "pages",
+          "transition": "slide"
+        },
+        "NotFound": {
+          "viewId": "NotFound",
+          "viewName": "NotFound"
       }
-    },
-    "rootView": {
-      "viewName": "com.hdi.myProfile.view.App",
-      "type": "XML",
-      "async": true,
-      "id": "App"
+      }
     }
   }
 }

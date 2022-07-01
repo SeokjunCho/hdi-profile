@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 sap.ui.define([
         "sap/ui/core/UIComponent",
         "sap/ui/Device",
@@ -25,6 +27,8 @@ sap.ui.define([
 
                 // set the device model
                 this.setModel(models.createDeviceModel(), "device");
+
+                console.log("HDI Component Start!");
             }
         });
     }

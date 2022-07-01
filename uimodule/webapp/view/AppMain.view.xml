@@ -1,0 +1,43 @@
+<mvc:View controllerName="com.hdi.myProfile.controller.AppMain" displayBlock="true" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:tnt="sap.tnt" height="100%">
+    <App id="idAppControl">
+        <tnt:ToolPage id="toolPage">
+            <tnt:header>
+                <tnt:ToolHeader>
+                    <!--
+                    <Button id="menuToggleBtn" icon="sap-icon://menu2" type="Transparent" press="onMenuButtonPress" />
+                    -->
+                    <ToolbarSpacer width="1rem" />
+                    <Text text="HDI Employee Profile" wrapping="false" class="f18_title" />
+                    <ToolbarSpacer width="0.3rem" />
+                    <Text text="인재 프로파일" wrapping="false" />
+                    <ToolbarSpacer />
+                    
+                    <Text id="lastLoginText" text="Last Login : 9999-12-31 24:00" wrapping="false" />
+                    <Button id="themeBtn" icon="sap-icon://master-task-triangle" text="다크 모드로 보기" type="Default" press="onChangeThemeMode" />
+                    <Button id="manualDownBtn" icon="sap-icon://download-from-cloud" text="매뉴얼 다운로드" type="Default" press="onPressCommonManualDownload" />
+                </tnt:ToolHeader>
+            </tnt:header>
+            <!--
+            <tnt:sideContent>
+                <tnt:SideNavigation id="sideNav" expanded="true" selectedKey="{/selectedKey}" itemSelect="onItemSelect">
+                    <tnt:NavigationList items="{path: '/navigation'}">
+                        <tnt:NavigationListItem text="{title}" icon="{icon}" key="{key}" visible="{visible}">
+                        </tnt:NavigationListItem>
+                    </tnt:NavigationList>
+                    <tnt:fixedItem>
+                        <tnt:NavigationList items="{path: '/fixedNavigation'}">
+                            <tnt:NavigationListItem text="{title}" icon="{icon}" key="{key}" visible="{visible}">
+                            </tnt:NavigationListItem>
+                        </tnt:NavigationList> 
+                    </tnt:fixedItem>
+                </tnt:SideNavigation>
+            </tnt:sideContent>
+            -->
+            <tnt:mainContents>
+                <NavContainer id="pageContainer">
+                    <pages />
+                </NavContainer>
+            </tnt:mainContents>
+        </tnt:ToolPage>
+    </App>
+</mvc:View>
