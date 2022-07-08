@@ -1,8 +1,6 @@
 {
-  "welcomeFile": "comhdimyProfile/",
-  "authenticationMethod": "none",
-  "logout": {
-    "logoutEndpoint": "/do/logout"
-  },
-  "routes": []
+  "welcomeFile" : "/uimodule/index.html",
+  "authenticationMethod" : "route",
+  "sessionTimeout": 60,
+  "routes" : []
 }

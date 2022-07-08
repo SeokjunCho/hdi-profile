@@ -6,7 +6,7 @@
   xmlns:mvc="sap.ui.core.mvc"
   xmlns:core="sap.ui.core"
   xmlns:tnt="sap.tnt" height="100%">
-  <f:DynamicPage id="subjectPersonPage" headerExpanded="true" class="sapUiSizeCompact" fitContent="false">
+  <f:DynamicPage id="subjectPersonPage" headerExpanded="true" class="sapUiSizeCompact" fitContent="true">
     <f:header>
       <f:DynamicPageHeader pinnable="false" class="noPadding">
         <!--
@@ -23,19 +23,19 @@
                   <HBox>
                     <VBox>
                       <Text text="Category" class="subTextTitle"/>
-                      <Select width="12rem" change="onChangeCategory">
+                      <Select id="categorySelect" width="12rem" change="onChangeCategory">
                         <items>
-                          <core:ListItem key="name" text="성명으로 검색"/>
-                          <core:ListItem key="personId" text="사번으로 검색"/>
+                          <core:ListItem key="ename" text="성명으로 검색"/>
+                          <core:ListItem key="userId" text="사번으로 검색"/>
                           <core:ListItem key="orgeh" text="조직명으로 검색"/>
-                          <core:ListItem key="massPersonId" text="사번으로 대량 검색"/>
-                        </items> 
+                          <core:ListItem key="userIds" text="사번으로 대량 검색"/>
+                        </items>
                       </Select>
                     </VBox>
                     <HBox width="1rem"/>
                     <VBox id="searchVBox">
                       <Text text="검색어" class="subTextTitle"/>
-                      <SearchField width="32rem" placeholder="두 글자 이상 입력하세요."/>
+                      <SearchField id="querySF" search="onSearch" width="32rem" placeholder="두 글자 이상 입력하세요."/>
                     </VBox>
                     <VBox id="uploadVBox" visible="false">
                       <Text text="업로드" class="subTextTitle"/>
@@ -55,5 +55,76 @@
 
       </f:DynamicPageHeader>
     </f:header>
+    <f:content>
+      <VBox>
+        <Table id="resultTable" growing="true" growingScrollToLoad="true" growingThreshold="50" contextualWidth="Auto" popinLayout="GridSmall" noDataText="검색 결과가 없습니다." items="{path: '/data'}" sticky="HeaderToolbar,InfoToolbar,ColumnHeaders" mode="MultiSelect" includeItemInSelection="true">
+          <headerToolbar>
+            <Toolbar>
+              <Title id="resultTableTitle" text="조회결과 (0)" level="H2" />
+              <ToolbarSpacer />
+              <Button type="Ghost" icon="sap-icon://pdf-attachment" text="프로필 다운로드" press="onPressReportDownload" />
+              <ToolbarSeparator />
+              <SearchField placeholder="Filter(내용검색)" search="filterGlobally" width="15rem" />
+            </Toolbar>
+          </headerToolbar>
+          <columns>
+            <Column width="10%" hAlign="Center">
+              <header>
+                <Label text="Person ID" />
+              </header>
+            </Column>
+            <Column width="10%" hAlign="Center">
+              <header>
+                <Label text="회사" />
+              </header>
+            </Column>
+            <Column width="30%" hAlign="Center">
+              <header>
+                <Text text="조직명" />
+              </header>
+            </Column>
+            <Column width="15%" hAlign="Center">
+              <header>
+                <Label text="성명" />
+              </header>
+            </Column>
+            <Column width="5%" hAlign="Center">
+              <header>
+                <Text text="직위" />
+              </header>
+            </Column>
+            <Column width="10%" hAlign="Center">
+              <header>
+                <Text text="근무지" />
+              </header>
+            </Column>
+            <Column width="15%" hAlign="Center">
+              <header>
+                <Text text="사무실번호" />
+              </header>
+            </Column>
+            <Column width="10%" hAlign="Center">
+              <header>
+                <Text text="추가기능" />
+              </header>
+            </Column>
+          </columns>
+          <items>
+            <ColumnListItem>
+              <cells>
+                <Label text="{userId}" />
+                <Label text="{division}" wrapping="true" />
+                <Label text="{department}" wrapping="true" />
+                <Label text="{defaultFullName}" />
+                <Label text="{title}" />
+                <Label text="{location}" />
+                <Label text="{businessPhone}" />
+                <Button icon="sap-icon://pdf-reader" type="Accept" text="프로필 보기" press="onPressProfileOpen"/>
+              </cells>
+            </ColumnListItem>
+          </items>
+        </Table>
+      </VBox>
+    </f:content>
   </f:DynamicPage>
 </mvc:View>

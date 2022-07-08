@@ -1,19 +1,17 @@
 <core:FragmentDefinition xmlns:core="sap.ui.core"
   xmlns:l="sap.ui.layout"
   xmlns="sap.m">
-  <Dialog id="uploadDialog" title="사번으로 대량 검색" showHeader="true" contentWidth="25%" contentHeight="35rem" verticalScrolling="false">
+  <Dialog id="uploadDialog" title="사번으로 대량 검색" showHeader="true" contentWidth="25%" contentHeight="30rem" verticalScrolling="false">
 
     <content>
-
-      <Toolbar height="4rem">
-        <MessageStrip id="uploadMsgStrip" class="width100Percent" text="1. Excel, 메모장 등을 이용하여 찾고자 하는 사번을 타이핑 후 드래그 하여 복사(Ctr+C)합니다. 2. 아래 [붙여넣기] 버튼 직접 클릭 혹은 Ctr+V 자판을 눌러주세요." showCloseButton="true" showIcon="true" customIcon="sap-icon://information" />
-      </Toolbar>
-
-      <ScrollContainer height="100%" vertical="true">
-        <Table id="uploadTable" growing="true" growingScrollToLoad="true" paste="onPasteData" growingThreshold="50" contextualWidth="Auto" popinLayout="GridSmall" headerText="대상자 리스트" noDataText="검색 결과가 없습니다." items="{path: '/pasteData'}" sticky="HeaderToolbar,InfoToolbar,ColumnHeaders">
-          <headerToolbar>
+      <VBox class="basicPadding">
+        <MessageStrip id="uploadMsgStrip" class="width100Percent" text="" enableFormattedText="true" showCloseButton="false" showIcon="true" customIcon="sap-icon://information" />
+        <VBox height="1rem"/>
+        <Table id="uploadTable" width="100%" paste="onPasteData" noDataText="업로드 결과가 없습니다. 데이터를 복사+붙여넣기 해주세요." items="{path: '/pasteData'}">
+                  <headerToolbar>
             <Toolbar>
-              <Title id="uploadTableTitle" text="대상자 ()" level="H2" />
+              <Title id="resultTitle" text="대상자 (0)" level="H2" />
+              <ToolbarSpacer/>
             </Toolbar>
           </headerToolbar>
           <columns>
@@ -26,15 +24,42 @@
           <items>
             <ColumnListItem>
               <cells>
-                <Input value="{PERSON_ID}}" />
+                <Input enabled="false" value="{PERSON_ID}" />
               </cells>
             </ColumnListItem>
           </items>
         </Table>
-      </ScrollContainer>
+      </VBox>
+      <!--
+        <Table id="uploadTable" growing="false" growingScrollToLoad="true" paste="onPasteData" growingThreshold="30" contextualWidth="Auto" popinLayout="GridSmall" headerText="대상자 리스트" noDataText="검색 결과가 없습니다." items="{path: '/pasteData'}" sticky="HeaderToolbar,InfoToolbar,ColumnHeaders">
+          <headerToolbar>
+            <Toolbar>
+              <Title id="uploadTableTitle" text="대상자 ()" level="H2" />
+              <ToolbarSpacer/>
+            </Toolbar>
+          </headerToolbar>
+          <columns>
+            <Column hAlign="Center" width="100%">
+              <header>
+                <Text text="사원번호" />
+              </header>
+            </Column>
+          </columns>
+          <items>
+            <ColumnListItem>
+              <cells>
+                <Input enabled="false" value="{PERSON_ID}" />
+              </cells>
+            </ColumnListItem>
+          </items>
+        </Table>
+-->
 
     </content>
 
+    <beginButton>
+      <Button id="SearchBtn" text="조회하기" type="Accept" press="onSearch" />
+    </beginButton>
     <endButton>
       <Button id="UploadCloseBtn" text="닫기" type="Reject" press="onCloseDialog" />
     </endButton>

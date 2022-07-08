@@ -12,6 +12,10 @@
   padding: 0rem !important;
 }
 
+.basicPadding {
+  padding: 1rem !important;
+}
+
 .backgroudMiddleVBox {
   align-self: center !important;
 }

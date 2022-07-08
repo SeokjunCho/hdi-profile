@@ -1,11 +1,18 @@
 {
   "welcomeFile": "/index.html",
   "routes": [
-    {
-      "source": "^(.*)",
-      "target": "$1",
-      "authenticationType": "xsuaa",
-      "service": "html5-apps-repo-rt"
-    }
+      {
+          "source": "^/hdi-profile-back/(.*)$",
+          "target": "$1",
+          "authenticationType": "none",
+          "destination": "hdi-profile-back",
+          "csrfProtection": false
+      },
+      {
+          "source": "^(.*)",
+          "target": "$1",
+          "authenticationType": "xsuaa",
+          "service": "html5-apps-repo-rt"
+      }
   ]
 }
