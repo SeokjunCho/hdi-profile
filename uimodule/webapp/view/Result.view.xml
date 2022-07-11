@@ -25,7 +25,7 @@
                       <Text text="Category" class="subTextTitle"/>
                       <Select id="categorySelect" width="12rem" change="onChangeCategory">
                         <items>
-                          <core:ListItem key="ename" text="성명으로 검색"/>
+                          <core:ListItem key="ename" text="이름으로 검색 (성 제외)"/>
                           <core:ListItem key="userId" text="사번으로 검색"/>
                           <core:ListItem key="orgeh" text="조직명으로 검색"/>
                           <core:ListItem key="userIds" text="사번으로 대량 검색"/>
@@ -68,17 +68,22 @@
             </Toolbar>
           </headerToolbar>
           <columns>
-            <Column width="10%" hAlign="Center">
+            <Column width="15%" hAlign="Center">
               <header>
                 <Label text="Person ID" />
               </header>
             </Column>
-            <Column width="10%" hAlign="Center">
+            <Column width="15%" hAlign="Center">
+              <header>
+                <Label text="사번" />
+              </header>
+            </Column>
+            <Column width="15%" hAlign="Center">
               <header>
                 <Label text="회사" />
               </header>
             </Column>
-            <Column width="30%" hAlign="Center">
+            <Column width="15%" hAlign="Center">
               <header>
                 <Text text="조직명" />
               </header>
@@ -88,22 +93,22 @@
                 <Label text="성명" />
               </header>
             </Column>
-            <Column width="5%" hAlign="Center">
+            <Column width="15%" hAlign="Center">
               <header>
                 <Text text="직위" />
               </header>
             </Column>
-            <Column width="10%" hAlign="Center">
+            <Column width="15%" hAlign="Center">
               <header>
-                <Text text="근무지" />
+                <Text text="직책" />
               </header>
             </Column>
             <Column width="15%" hAlign="Center">
               <header>
-                <Text text="사무실번호" />
+                <Text text="직무" />
               </header>
             </Column>
-            <Column width="10%" hAlign="Center">
+            <Column width="15%" hAlign="Center">
               <header>
                 <Text text="추가기능" />
               </header>
@@ -112,13 +117,14 @@
           <items>
             <ColumnListItem>
               <cells>
+                <Label text="{personId}" />
                 <Label text="{userId}" />
-                <Label text="{division}" wrapping="true" />
+                <Label text="{company}" wrapping="true" />
                 <Label text="{department}" wrapping="true" />
-                <Label text="{defaultFullName}" />
+                <Label text="{lastName}{firstName}" />
                 <Label text="{title}" />
-                <Label text="{location}" />
-                <Label text="{businessPhone}" />
+                <Label text="{position}" />
+                <Label text="{job}" />
                 <Button icon="sap-icon://pdf-reader" type="Accept" text="프로필 보기" press="onPressProfileOpen"/>
               </cells>
             </ColumnListItem>

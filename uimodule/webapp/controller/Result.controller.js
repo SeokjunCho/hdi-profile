@@ -139,6 +139,7 @@ sap.ui.define(
 
 				let oAddParam = {
 					aPersonId: [],
+                    aUserId: [],
 					orgeh: "", // 조직 이름
 					ename: "", // 직원 이름
 				};
@@ -235,11 +236,13 @@ sap.ui.define(
 					return;
 				}
 				let aPersonId = [];
+                let aUserId = [];
 				for (const oItem of aItems) {
 					const oContext = oItem.getBindingContext();
 					const oObj = oContext.getProperty(null, oContext);
 					console.log(oObj);
-					aPersonId.push(oObj.userId);
+					aPersonId.push(oObj.personId);
+                    aUserId.push(oObj.userId);
 				}
 
 				const oParam = {
@@ -249,7 +252,7 @@ sap.ui.define(
 						pageOrientation: "portrait",
 						fontSize: 8,
 					},
-					userId: "", // 로그인 사용자 Person ID
+					aUserId: aUserId, // 로그인 사용자 Person ID
 					token: "", // 로그인 사용자 토큰
 					aPersonId: aPersonId, // 배열 길이가 1이면 PDF 파일, 2이상이면 zip 파일 제공
 				};
