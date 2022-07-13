@@ -5,11 +5,13 @@ sap.ui.define(
 		"sap/ui/model/json/JSONModel",
 		"sap/m/MessageBox",
 		"sap/m/PDFViewer",
+		"sap/ui/model/Filter",
+		"sap/ui/model/FilterOperator"
 	],
 	/**
 	 * @param {typeof sap.ui.core.mvc.Controller} Controller
 	 */
-	function (Controller, JSONModel, MessageBox, PDFViewer) {
+	function (Controller, JSONModel, MessageBox, PDFViewer, Filter, FilterOperator) {
 		"use strict";
 
 		return Controller.extend("com.hdi.myProfile.controller.Result", {
@@ -221,7 +223,7 @@ sap.ui.define(
 					this._pdfViewer.setShowDownloadButton(false);
 					this._pdfViewer.setSource(pdfUrl);
 					this._pdfViewer.setTitle(
-						`${oTargetObject.firstName} ${oTargetObject.title} Profile`
+						`${oTargetObject.lastName} ${oTargetObject.firstName} ${oTargetObject.title} Profile`
 					);
 					this._pdfViewer.open();
 				} catch (err) {
@@ -284,13 +286,46 @@ sap.ui.define(
 
 			// 재직구분 formatter
 			statusFormatter: function (status) {
-				//this.getView().getModel("i18n").getResourceBundle().getText("words"); 
+				//this.getView().getModel("i18n").getResourceBundle().getText("words");
 				if (status === "T") {
 					return "퇴직";
 				} else if (status === "U" || status === "P") {
 					return "휴직";
 				} else {
 					return "재직";
+				}
+			},
+
+			// "대상자 검색" 팝업 - 검색 필터
+			filterGlobally: function (oEvent) {
+				let sQuery = oEvent.getParameter("query");
+				const oTable = this.byId("resultTable");
+				const oBinding = oTable.getBinding("items");
+				this._oGlobalFilter = null;
+
+				oBinding.attachChange((oFilterEvent) => {
+					this.byId("resultTableTitle")
+						.setText(`대상자 (${oFilterEvent.getSource().iLength})`);
+				});
+
+				if (sQuery) {
+					this._oGlobalFilter = new Filter(
+						[
+							new Filter("personId", FilterOperator.Contains, sQuery),
+							new Filter("userId", FilterOperator.Contains, sQuery),
+							new Filter("company", FilterOperator.Contains, sQuery),
+							new Filter("department", FilterOperator.Contains, sQuery),
+							new Filter("title", FilterOperator.Contains, sQuery),
+							new Filter("position", FilterOperator.Contains, sQuery),
+							new Filter("job", FilterOperator.Contains, sQuery),
+						],
+						false
+					);
+
+					const oFilter = this._oGlobalFilter;
+					oBinding.filter(oFilter);
+				} else {
+					oBinding.filter(null);
 				}
 			},
 		});
