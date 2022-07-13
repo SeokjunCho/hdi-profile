@@ -22,7 +22,18 @@
                   <VBox height="2rem"/>
                   <HBox>
                     <VBox>
-                      <Text text="Category" class="subTextTitle"/>
+                      <Text text="재직구분" class="subTextTitle"/>
+                      <MultiComboBox id="statusMCB" width="12rem" selectedKeys="3">
+                        <items>
+                          <core:ListItem key="3" text="재직"/>
+                          <core:ListItem key="1" text="휴직"/>
+                          <core:ListItem key="0" text="퇴직"/>
+                        </items>
+                      </MultiComboBox>
+                    </VBox>
+                    <HBox width="1rem"/>
+                    <VBox>
+                      <Text text="검색방법" class="subTextTitle"/>
                       <Select id="categorySelect" width="12rem" change="onChangeCategory">
                         <items>
                           <core:ListItem key="ename" text="이름으로 검색 (성 제외)"/>
@@ -35,7 +46,7 @@
                     <HBox width="1rem"/>
                     <VBox id="searchVBox">
                       <Text text="검색어" class="subTextTitle"/>
-                      <SearchField id="querySF" search="onSearch" width="32rem" placeholder="두 글자 이상 입력하세요."/>
+                      <SearchField id="querySF" search="onSearch" width="20rem" placeholder="두 글자 이상 입력하세요."/>
                     </VBox>
                     <VBox id="uploadVBox" visible="false">
                       <Text text="업로드" class="subTextTitle"/>
@@ -68,17 +79,17 @@
             </Toolbar>
           </headerToolbar>
           <columns>
-            <Column width="15%" hAlign="Center">
+            <Column width="10%" hAlign="Center">
               <header>
                 <Label text="Person ID" />
               </header>
             </Column>
-            <Column width="15%" hAlign="Center">
+            <Column width="10%" hAlign="Center">
               <header>
                 <Label text="사번" />
               </header>
             </Column>
-            <Column width="15%" hAlign="Center">
+            <Column width="20%" hAlign="Center" minScreenWidth="Desktop" demandPopin="true">
               <header>
                 <Label text="회사" />
               </header>
@@ -110,6 +121,11 @@
             </Column>
             <Column width="15%" hAlign="Center">
               <header>
+                <Text text="재직구분" />
+              </header>
+            </Column>
+            <Column width="15%" hAlign="Center">
+              <header>
                 <Text text="추가기능" />
               </header>
             </Column>
@@ -121,10 +137,11 @@
                 <Label text="{userId}" />
                 <Label text="{company}" wrapping="true" />
                 <Label text="{department}" wrapping="true" />
-                <Label text="{lastName}{firstName}" />
+                <Label text="{lastName} {firstName}" />
                 <Label text="{title}" />
                 <Label text="{position}" />
                 <Label text="{job}" />
+                <Label text="{path:'status', formatter:'.statusFormatter'}" />
                 <Button icon="sap-icon://pdf-reader" type="Accept" text="프로필 보기" press="onPressProfileOpen"/>
               </cells>
             </ColumnListItem>

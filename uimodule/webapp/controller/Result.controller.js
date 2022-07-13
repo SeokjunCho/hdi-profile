@@ -111,11 +111,14 @@ sap.ui.define(
 
 			onSearch: async function (oEvent) {
 				console.log("onSearch!");
-				const oSelect = this.byId("categorySelect");
-				const sSelectedKey = oSelect.getSelectedKey();
+				const oCategorySelect = this.byId("categorySelect");
+				const sCategorySelectedKey = oCategorySelect.getSelectedKey();
+
+				const oStatusMCB = this.byId("statusMCB");
+				const aStatusMCBKeys = oStatusMCB.getSelectedKeys();
 				let sQuery = "";
 
-				if (sSelectedKey === "userIds") {
+				if (sCategorySelectedKey === "userIds") {
 					if (!this.aUserIds.length) {
 						MessageBox.information(
 							"업로드된 사번이 없습니다. 안내문을 읽고 다시 조회해주세요."
@@ -134,23 +137,24 @@ sap.ui.define(
 					}
 				}
 
-				console.log(sSelectedKey);
+				console.log(sCategorySelectedKey);
 				console.log(sQuery);
 
 				let oAddParam = {
 					aPersonId: [],
-                    aUserId: [],
+					aUserId: [],
 					orgeh: "", // 조직 이름
 					ename: "", // 직원 이름
+					status: aStatusMCBKeys,
 				};
 
-				if (sSelectedKey === "ename") {
+				if (sCategorySelectedKey === "ename") {
 					oAddParam.ename = sQuery;
-				} else if (sSelectedKey === "userId") {
+				} else if (sCategorySelectedKey === "userId") {
 					oAddParam.aPersonId.push(sQuery);
-				} else if (sSelectedKey === "orgeh") {
+				} else if (sCategorySelectedKey === "orgeh") {
 					oAddParam.orgeh = sQuery;
-				} else if (sSelectedKey === "userIds") {
+				} else if (sCategorySelectedKey === "userIds") {
 					for (let obj of sQuery) {
 						oAddParam.aPersonId.push(`${obj.PERSON_ID}`);
 					}
@@ -186,6 +190,12 @@ sap.ui.define(
 				console.log(oTargetObject);
 
 				try {
+					const oUserParam = {
+						personId: oTargetObject.personId,
+						userId: oTargetObject.userId,
+						isPrimary: oTargetObject.isPrimary,
+					};
+
 					const key = `${oTargetObject.state}_${oTargetObject.userId}`;
 					let pdfUrl = "";
 
@@ -199,9 +209,8 @@ sap.ui.define(
 								pageOrientation: "portrait",
 								fontSize: 8,
 							},
-							userId: "", // 로그인 사용자 Person ID
 							token: "", // 로그인 사용자 토큰
-							aPersonId: [oTargetObject.userId], // 배열 길이가 1이면 PDF 파일, 2이상이면 zip 파일 제공
+							aUser: [oUserParam], // 배열 길이가 1이면 PDF 파일, 2이상이면 zip 파일 제공
 						};
 						const oFile = await this.connect("POST", "profile", oParam);
 
@@ -236,13 +245,17 @@ sap.ui.define(
 					return;
 				}
 				let aPersonId = [];
-                let aUserId = [];
+
 				for (const oItem of aItems) {
 					const oContext = oItem.getBindingContext();
 					const oObj = oContext.getProperty(null, oContext);
 					console.log(oObj);
-					aPersonId.push(oObj.personId);
-                    aUserId.push(oObj.userId);
+					let oUserParam = {
+						personId: oObj.personId,
+						userId: oObj.userId,
+						isPrimary: oObj.isPrimary,
+					};
+					aPersonId.push(oUserParam);
 				}
 
 				const oParam = {
@@ -252,9 +265,8 @@ sap.ui.define(
 						pageOrientation: "portrait",
 						fontSize: 8,
 					},
-					aUserId: aUserId, // 로그인 사용자 Person ID
 					token: "", // 로그인 사용자 토큰
-					aPersonId: aPersonId, // 배열 길이가 1이면 PDF 파일, 2이상이면 zip 파일 제공
+					aUser: aPersonId, // 배열 길이가 1이면 PDF 파일, 2이상이면 zip 파일 제공
 				};
 				const oFile = await this.connect("POST", "profile", oParam);
 				//console.log(oFile);
@@ -268,6 +280,18 @@ sap.ui.define(
 				a.click();
 				a.remove();
 				window.URL.revokeObjectURL(url);
+			},
+
+			// 재직구분 formatter
+			statusFormatter: function (status) {
+				//this.getView().getModel("i18n").getResourceBundle().getText("words"); 
+				if (status === "T") {
+					return "퇴직";
+				} else if (status === "U" || status === "P") {
+					return "휴직";
+				} else {
+					return "재직";
+				}
 			},
 		});
 	}
