@@ -115,6 +115,7 @@ sap.ui.define(
 
 			onSearch: async function (oEvent) {
 				console.log("onSearch!");
+				const oComponent = this.getOwnerComponent();
 				const oCategorySelect = this.byId("categorySelect");
 				const sCategorySelectedKey = oCategorySelect.getSelectedKey();
 
@@ -164,8 +165,12 @@ sap.ui.define(
 					}
 				}
 
+				if(oComponent._bIsDev) {
+					oComponent._gUserId = "minchoul.jung@doosan.com";
+				}
+
 				let oParam = {
-					userId: "", // 로그인 사용자 Person ID
+					userId: oComponent._gUserId, // 로그인 사용자 Person ID
 					token: "", // 로그인 사용자 토근
 				};
 

@@ -61,8 +61,7 @@ sap.ui.define([
         
             onInit: async function() {
                 const oResult = await this.getToken();
-                console.log("=== Login Result ===");
-                console.log(oResult);
+                this._gUserId = oResult.user_name;
             },
 
             getToken: function () {
@@ -78,7 +77,7 @@ sap.ui.define([
                             console.log("=== data ===");
                             console.log(cdata);
     
-                            if (!!cdata.userId) {
+                            if (!!cdata.user_name) {
                                 resolve(cdata);
                             } else {
                                 resolve("JWT_NULL");
