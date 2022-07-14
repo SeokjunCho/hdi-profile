@@ -242,7 +242,7 @@ sap.ui.define(
 				// 메일 발송 버튼 예외 체크
 				if (aItems.length === 0) {
 					MessageBox.information(
-						"조회결과에서 프로필을 다운받고자 하는 대상자를 체크해 주세요"
+						"조회결과에서 프로필을 다운받고자 하는 대상자를 체크해 주세요."
 					);
 					return;
 				}
