@@ -1,5 +1,6 @@
 {
     "welcomeFile": "/index.html",
+    "sessionTimeout": 60,
     "routes": [
         {
             "source": "^/hdi-profile-back/(.*)$",
