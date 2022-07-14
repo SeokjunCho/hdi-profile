@@ -14,7 +14,7 @@
     "deploy:cf": "cross-var cf deploy mta_archives/myProfile_$npm_package_version.mtar",
     "deploy": "run-s build:mta deploy:cf",
     "serve:uimodule": "ui5 serve --config=uimodule/ui5.yaml",
-    "build:uimodule": "ui5 build --config=uimodule/ui5.yaml --clean-dest --dest uimodule/dist --include-task=generateManifestBundle"
+    "build:uimodule": "ui5 build --config=uimodule/ui5.yaml --clean-dest --dest uimodule/dist --include-task=generateManifestBundle generateCachebusterInfo"
   },
   "devDependencies": {
     "@prettier/plugin-xml": "^1.1.0",
@@ -33,12 +33,14 @@
     "shx": "^0.3.3",
     "ui5-middleware-cfdestination": "^0.7.3",
     "ui5-middleware-livereload": "^0.5.8",
+    "ui5-task-cachebuster-indexing": "^1.0.2",
     "ui5-task-zipper": "^0.4.7"
   },
   "ui5": {
     "dependencies": [
       "ui5-middleware-livereload",
       "ui5-middleware-cfdestination",
+      "ui5-task-cachebuster-indexing",
       "ui5-task-zipper"
     ]
   },
