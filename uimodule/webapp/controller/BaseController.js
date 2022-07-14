@@ -138,7 +138,7 @@ sap.ui.define(
 					_gBusyDialog.open();
 					let URL = "";
 					if (!oComponent._bIsDev) {
-						URL = "profile-back/" + sUrl;
+						URL = "hdi-profile-back/" + sUrl;
 					} else {
 						URL = "http://localhost:8080/" + sUrl;
 					}
@@ -165,6 +165,7 @@ sap.ui.define(
 							}
 						},
 						error: function (err) {
+							console.log(err);
 							if (err.statusText.indexOf("localhost") !== -1) {
 								MessageBox.error(
 									"localhost환경입니다. Node Express Back-end서버를 실행시켜주세요."
