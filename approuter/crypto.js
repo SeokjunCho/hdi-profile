@@ -22,12 +22,14 @@ ar.beforeRequestHandler.use("/getToken", (req, res) => {
   res.statusCode = 200;
   const decodedJWTToken = jwtDecode(req.user.token.accessToken);
 
+  /*
   let vData = {
     userId: decodedJWTToken.user_name,
     token: encryptText(decodedJWTToken.user_name)
   };
+  */
 
-  res.end(JSON.stringify(vData));
+  res.end(JSON.stringify(decodedJWTToken));
 });
 
 ar.start();

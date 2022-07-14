@@ -56,7 +56,42 @@ sap.ui.define([
                 });
 
                 console.log("HDI Component Start!");
-            }
+                this.onInit();
+            },
+        
+            onInit: async function() {
+                const oResult = await this.getToken();
+                console.log("=== Login Result ===");
+                console.log(oResult);
+            },
+
+            getToken: function () {
+                return new Promise((resolve) => {
+                    $.ajax({
+                        url: "/getToken",
+                        method: "GET",
+                        datatype: "json",
+                        async: true,
+                        cache: false,
+                        success: function (data) {
+                            const cdata = $.parseJSON(data);
+                            console.log("=== data ===");
+                            console.log(cata);
+    
+                            if (!!cdata.userId) {
+                                resolve(cdata);
+                            } else {
+                                resolve("JWT_NULL");
+                            }
+                        },
+    
+                        error: function (error) {
+                            console.log(error);
+                            resolve("JWT_ERROR");
+                        },
+                    });
+                });
+            }, 
         });
     }
 );
