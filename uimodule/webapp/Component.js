@@ -76,7 +76,7 @@ sap.ui.define([
                         success: function (data) {
                             const cdata = $.parseJSON(data);
                             console.log("=== data ===");
-                            console.log(cata);
+                            console.log(cdata);
     
                             if (!!cdata.userId) {
                                 resolve(cdata);
