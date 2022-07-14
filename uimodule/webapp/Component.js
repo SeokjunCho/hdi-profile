@@ -56,7 +56,7 @@ sap.ui.define([
                 });
 
                 console.log("HDI Component Start!");
-                //this.onInit();
+                this.onInit();
             },
         
             onInit: async function() {

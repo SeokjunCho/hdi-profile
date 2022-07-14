@@ -1,4 +1,3 @@
-
 // @ts-nocheck
 sap.ui.define(
 	[
@@ -6,16 +5,24 @@ sap.ui.define(
 		"sap/ui/core/routing/History",
 		"sap/ui/core/UIComponent",
 		"com/hdi/myProfile/model/formatter",
-        "sap/ui/core/Fragment", 
-        "sap/m/MessageBox",
-        "sap/ui/model/json/JSONModel"
+		"sap/ui/core/Fragment",
+		"sap/m/MessageBox",
+		"sap/ui/model/json/JSONModel",
 	],
 	/**
 	 * @param {typeof sap.ui.core.mvc.Controller} Controller
 	 * @param {typeof sap.ui.core.routing.History} History
 	 * @param {typeof sap.ui.core.UIComponent} UIComponent
 	 */
-	function (Controller, History, UIComponent, formatter, Fragment, MessageBox, JSONModel) {
+	function (
+		Controller,
+		History,
+		UIComponent,
+		formatter,
+		Fragment,
+		MessageBox,
+		JSONModel
+	) {
 		"use strict";
 
 		return Controller.extend("com.hdi.myProfile.controller.BaseController", {
@@ -77,7 +84,9 @@ sap.ui.define(
 			},
 
 			loadFragment: async function (param) {
+				console.log("loadFragment");
 				if (param === "Upload") {
+					console.log(this._oUploadPage);
 					if (!this._oUploadPage) {
 						Fragment.load({
 							name: "com.hdi.myProfile.view.fragment.Upload",
@@ -87,77 +96,86 @@ sap.ui.define(
 								this._oUploadPage = oPage;
 								this.getView().addDependent(this._oUploadPage);
 
-                                const oMsgStrip = sap.ui.getCore().byId("uploadMsgStrip");
-                                //console.log(oMsgStrip);
-                                oMsgStrip.setText("1. Excel, 메모장 등을 이용하여 조회하고자 하는 사번을 <br> 입력 후 마우스로 드래그 하여 <strong>복사(Ctr+C)</strong>합니다.<br> 2. 본 화면에서 <strong>붙여넣기(Ctr+V)</strong> 키를 누르면 데이터가 로드<br>됩니다.<br>3. 아래 표에서 내용 확인 후 [조회하기]버튼을 눌러 주세요.");
+								const oMsgStrip = sap.ui.getCore().byId("uploadMsgStrip");
+								//console.log(oMsgStrip);
+								oMsgStrip.setText(
+									"1. Excel, 메모장 등을 이용하여 조회하고자 하는 사번을 <br> 입력 후 마우스로 드래그 하여 <strong>복사(Ctr+C)</strong>합니다.<br> 2. 본 화면에서 <strong>붙여넣기(Ctr+V)</strong> 키를 누르면 데이터가 로드<br>됩니다.<br>3. 아래 표에서 내용 확인 후 [조회하기]버튼을 눌러 주세요."
+								);
 
 								this._oUploadPage.open();
 							}.bind(this)
 						);
 					} else {
-                        const oTable = sap.ui.getCore().byId("uploadTable");
-                        let oModel = new JSONModel();
-                        oModel.setProperty("/pasteData", []);
-                        oTable.setModel(oModel);
-                        this._oUploadPage.open();
-                    }
+						const oTable = sap.ui.getCore().byId("uploadTable");
+						const oTitle = sap.ui.getCore().byId("resultTitle");
+						console.log(oTitle);
+						let oModel = new JSONModel();
+						oModel.setProperty("/pasteData", []);
+						oTable.setModel(oModel);
+						oTitle.setText(`대상자 (0)`);
+						this._oUploadPage.open();
+					}
 				}
 			},
 
-            onCloseDialog: async function (oEvent) {
-                if (oEvent.getSource().getId() === "UploadCloseBtn") {
-                    this._oUploadPage.close();
-                }
-            },
+			onCloseDialog: async function (oEvent) {
+				if (oEvent.getSource().getId() === "UploadCloseBtn") {
+					this._oUploadPage.close();
+				}
+			},
 
-            connect: function (sMethod, sUrl, oParam, async = true) {
-                const oComponent = this.getOwnerComponent();
-                const _gBusyDialog = oComponent._gBusyDialog;
-                let oXhrFields = {};
-                if (sUrl === "profile") {
-                    oXhrFields = {
-                        responseType: "blob",
-                    };
-                }
+			connect: function (sMethod, sUrl, oParam, async = true) {
+				const oComponent = this.getOwnerComponent();
+				const _gBusyDialog = oComponent._gBusyDialog;
+				let oXhrFields = {};
+				if (sUrl === "profile") {
+					oXhrFields = {
+						responseType: "blob",
+					};
+				}
 
-                return new Promise((resolve, reject) => {
-                    _gBusyDialog.open();
-                    let URL = "";
-                    if (!oComponent._bIsDev) {
-                        URL = "hdi-profile-back/" + sUrl;
-                    } else {
-                        URL = "http://localhost:8080/" + sUrl;
-                    }
+				return new Promise((resolve, reject) => {
+					_gBusyDialog.open();
+					let URL = "";
+					if (!oComponent._bIsDev) {
+						URL = "hdi-profile-back/" + sUrl;
+					} else {
+						URL = "http://localhost:8080/" + sUrl;
+					}
 
-                    console.log("Call from BaseController.js");
-                    console.log(`URL : ${URL}`);
-                    console.log(`METHOD : ${sMethod}`);
+					console.log("Call from BaseController.js");
+					console.log(`URL : ${URL}`);
+					console.log(`METHOD : ${sMethod}`);
 
-                    jQuery.ajax({
-                        url: URL,
-                        type: sMethod,
-                        datatype: "json",
-                        data: JSON.stringify(oParam),
-                        contentType: "application/json",
-                        xhrFields: oXhrFields,
-                        async: async,
-                        success: function (results) {
-                            resolve(results);
-                            _gBusyDialog.close();
-                            if (!!results.message && results.message !== "") {
-                                MessageBox.error("오류가 발생했습니다. 담당자에게 연락해주세요.");
-                            }
-                        },
-                        error: function (err) {
-                            if (err.statusText.indexOf("localhost") !== -1) {
-                                MessageBox.error("localhost환경입니다. Node Express Back-end서버를 실행시켜주세요.");
-                            }
-                            reject(err);
-                            _gBusyDialog.close();
-                        },
-                    });
-                });
-            },
+					jQuery.ajax({
+						url: URL,
+						type: sMethod,
+						datatype: "json",
+						data: JSON.stringify(oParam),
+						contentType: "application/json",
+						xhrFields: oXhrFields,
+						async: async,
+						success: function (results) {
+							resolve(results);
+							_gBusyDialog.close();
+							if (!!results.message && results.message !== "") {
+								MessageBox.error(
+									"오류가 발생했습니다. 담당자에게 연락해주세요."
+								);
+							}
+						},
+						error: function (err) {
+							if (err.statusText.indexOf("localhost") !== -1) {
+								MessageBox.error(
+									"localhost환경입니다. Node Express Back-end서버를 실행시켜주세요."
+								);
+							}
+							reject(err);
+							_gBusyDialog.close();
+						},
+					});
+				});
+			},
 		});
 	}
 );

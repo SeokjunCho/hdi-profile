@@ -55,6 +55,7 @@ sap.ui.define(
 
 				//Open Fragment
 				await this.loadFragment("Upload");
+				console.log("onPressUpload Finish");
 			},
 
 			onPasteData: function (oEvent) {
@@ -72,8 +73,9 @@ sap.ui.define(
 					console.log(aData);
 
 					for (let userId of aData) {
-						if (!isNaN(userId) && userId !== "") {
-							aUserId.push({ PERSON_ID: parseInt(userId) });
+						//if (!isNaN(userId) && userId !== "") {
+						if (userId !== "") {
+							aUserId.push({ PERSON_ID: userId });
 						}
 					}
 				});
