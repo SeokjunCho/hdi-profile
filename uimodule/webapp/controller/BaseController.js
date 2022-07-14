@@ -138,7 +138,7 @@ sap.ui.define(
 					_gBusyDialog.open();
 					let URL = "";
 					if (!oComponent._bIsDev) {
-						URL = "hdi-profile-back/" + sUrl;
+						URL = "profile-back/" + sUrl;
 					} else {
 						URL = "http://localhost:8080/" + sUrl;
 					}

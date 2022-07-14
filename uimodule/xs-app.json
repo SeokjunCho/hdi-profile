@@ -2,7 +2,7 @@
     "welcomeFile": "/index.html",
     "routes": [
         {
-            "source": "^/hdi-profile-back/(.*)$",
+            "source": "^/profile-back/(.*)$",
             "target": "$1",
             "authenticationType": "none",
             "destination": "hdi-profile-back",
