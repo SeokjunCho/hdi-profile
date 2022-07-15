@@ -46,6 +46,13 @@ sap.ui.define(
 					this.byId("searchVBox").setVisible(true);
 					this.byId("uploadVBox").setVisible(false);
 				}
+
+				if (sKey === "ename") {
+					sQuery.setPlaceholder("예시) 김 현대 (성명), 현대 (이름)");
+				} else {
+					sQuery.setPlaceholder("두 글자 이상 입력하세요.");
+				}
+
 			},
 
 			onPressUpload: async function (oEvent) {
@@ -214,7 +221,7 @@ sap.ui.define(
 						const oParam = {
 							format: "HDI", // HDI : 현대중공업 포멧, GROUP : 그룹 공통 포멧
 							properties: {
-								lang: "ko", // PDF 언어 선택
+								lang: "ko_KR", // PDF 언어 선택
 								pageOrientation: "portrait",
 								fontSize: 8,
 							},
@@ -270,7 +277,7 @@ sap.ui.define(
 				const oParam = {
 					format: "HDI", // HDI : 현대중공업 포멧, GROUP : 그룹 공통 포멧
 					properties: {
-						lang: "ko", // PDF 언어 선택
+						lang: "ko_KR", // PDF 언어 선택
 						pageOrientation: "portrait",
 						fontSize: 8,
 					},
@@ -324,7 +331,7 @@ sap.ui.define(
 							new Filter("department", FilterOperator.Contains, sQuery),
 							new Filter("title", FilterOperator.Contains, sQuery),
 							new Filter("position", FilterOperator.Contains, sQuery),
-							new Filter("job", FilterOperator.Contains, sQuery),
+							new Filter("employeeType", FilterOperator.Contains, sQuery),
 						],
 						false
 					);
