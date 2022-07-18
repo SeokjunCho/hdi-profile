@@ -46,7 +46,7 @@
                     <HBox width="1rem"/>
                     <VBox id="searchVBox">
                       <Text text="검색어" class="subTextTitle"/>
-                      <SearchField id="querySF" search="onSearch" width="20rem" placeholder="예시) 김 현대 (성명), 현대 (이름)"/>
+                      <SearchField id="querySF" search="onSearch" width="20rem" placeholder="입력 예시) 김 현대 (성명), 현대 (이름)"/>
                     </VBox>
                     <VBox id="uploadVBox" visible="false">
                       <Text text="업로드" class="subTextTitle"/>
@@ -146,7 +146,7 @@
                 <Label text="{title}" />
                 <Label text="{position}" />
                 <Label text="{jobGroup}" />
-                <Label text="{employeeType}" />
+                <Label text="{empType}" />
                 <Label text="{path:'status', formatter:'.statusFormatter'}" />
                 <Button icon="sap-icon://pdf-reader" type="Accept" text="프로필 보기" press="onPressProfileOpen"/>
               </cells>

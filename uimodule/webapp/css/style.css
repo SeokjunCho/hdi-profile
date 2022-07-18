@@ -45,7 +45,25 @@
 .width100Percent {
   width: 100%;
 }
- 
+
+.pointer {
+  cursor: pointer;
+}
+
+.flag {
+    height: 1.5rem !important;
+    border-radius: 5px !important;
+    cursor: pointer !important;
+}
+
+.sapMSLIImgIcon, .sapMSLIImg, .sapMSLIImgNoInsetIcon, .sapMSLIImgNoInset {
+  height: 2rem !important;
+  line-height: 2rem !important;
+  margin-right: 1.5rem !important;
+  flex: none;
+  border-radius: 0rem !important;
+}
+
 .stars {
   width: 1px;
   height: 1px;

@@ -1,0 +1,18 @@
+<core:FragmentDefinition xmlns="sap.m"
+  xmlns:core="sap.ui.core">
+  <Popover id="langPopover" showHeader="false" contentWidth="320px" contentHeight="280px" placement="Bottom">
+    <Page id="master" title="Language">
+      <List id="list">
+        <StandardListItem title="한국어" description="KO" type="Active" icon="./img/flag/kr.svg" press="onSelectLang" iconDensityAware="true" iconInset="true" />
+        <StandardListItem title="English" description="EN" type="Active" icon="./img/flag/us.svg" press="onSelectLang" iconDensityAware="true" iconInset="true" />
+        <StandardListItem title="简体中文" description="ZH" type="Active" icon="./img/flag/cn.svg" press="onSelectLang" iconDensityAware="true" iconInset="true" />
+      </List>
+    </Page>
+    <footer>
+      <Toolbar>
+        <ToolbarSpacer/>
+        <Button text="Close" press="onPressLangClose" />
+      </Toolbar>
+    </footer>
+  </Popover>
+</core:FragmentDefinition>
