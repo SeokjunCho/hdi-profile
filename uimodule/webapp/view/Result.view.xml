@@ -18,7 +18,8 @@
               <VBox alignItems="Start" justifyContent="Center">
                 <VBox class="backgroudMiddleVBox">
                   <VBox height="1rem"/>
-                  <Text text="다양한 방법으로 프로필을 조회 할 수 있습니다." class="mainText1Row"/>
+                  <!-- 다양한 방법으로 프로필을 조회 할 수 있습니다. -->
+                  <Text text="{i18n>mainText}" class="mainText1Row"/> 
                   <VBox height="2rem"/>
                   <HBox>
                     <VBox>
@@ -71,7 +72,7 @@
         <Table id="resultTable" growing="true" growingScrollToLoad="true" growingThreshold="50" contextualWidth="Auto" popinLayout="GridSmall" noDataText="검색 결과가 없습니다." items="{path: '/data'}" sticky="HeaderToolbar,InfoToolbar,ColumnHeaders" mode="MultiSelect" includeItemInSelection="true">
           <headerToolbar>
             <Toolbar>
-              <Title id="resultTableTitle" text="조회결과 (0)" level="H2" />
+              <Title id="resultTableTitle" text="{i18n>searchResult} (0)" level="H2" />
               <ToolbarSpacer />
               <Button type="Ghost" icon="sap-icon://pdf-attachment" text="프로필 다운로드" press="onPressReportDownload" />
               <ToolbarSeparator />
