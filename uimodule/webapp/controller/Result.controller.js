@@ -213,13 +213,14 @@ sap.ui.define(
 						pdfUrl = this._pdfUrlMap.get(key);
 					} else {
 						const oParam = {
+							userId: "", // 로그인 사용자 User ID
+							token: "", // 로그인 사용자 토큰
 							format: "HDI", // HDI : 현대중공업 포멧, GROUP : 그룹 공통 포멧
 							properties: {
 								lang: "ko_KR", // PDF 언어 선택
 								pageOrientation: "portrait",
 								fontSize: 8,
 							},
-							token: "", // 로그인 사용자 토큰
 							aUser: [oUserParam], // 배열 길이가 1이면 PDF 파일, 2이상이면 zip 파일 제공
 						};
 						const oFile = await this.connect("POST", "profile", oParam);
