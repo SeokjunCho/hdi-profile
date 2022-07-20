@@ -6,12 +6,13 @@ sap.ui.define(
 		"sap/m/MessageBox",
 		"sap/m/PDFViewer",
 		"sap/ui/model/Filter",
-		"sap/ui/model/FilterOperator"
+		"sap/ui/model/FilterOperator",
+		"sap/ui/core/ws/WebSocket",
 	],
 	/**
 	 * @param {typeof sap.ui.core.mvc.Controller} Controller
 	 */
-	function (Controller, JSONModel, MessageBox, PDFViewer, Filter, FilterOperator) {
+	function (Controller, JSONModel, MessageBox, PDFViewer, Filter, FilterOperator, WebSocket) {
 		"use strict";
 
 		return Controller.extend("com.hdi.myProfile.controller.Result", {
@@ -52,7 +53,6 @@ sap.ui.define(
 				} else {
 					sQuery.setPlaceholder("두 글자 이상 입력하세요.");
 				}
-
 			},
 
 			onPressUpload: async function (oEvent) {
@@ -92,9 +92,7 @@ sap.ui.define(
 
 				console.log("new arr");
 
-				const aSetUserId = [...new Set(aUserId.map(JSON.stringify))].map(
-					JSON.parse
-				);
+				const aSetUserId = [...new Set(aUserId.map(JSON.stringify))].map(JSON.parse);
 
 				console.log(aSetUserId);
 				this.aUserIds = aSetUserId;
@@ -104,9 +102,7 @@ sap.ui.define(
 						aPasteData.push(obj);
 					} else if (idx === 5) {
 						aPasteData.push({
-							PERSON_ID: `외 ${
-								aSetUserId.length - idx
-							}건의 데이터가 로드 되었습니다.`,
+							PERSON_ID: `외 ${aSetUserId.length - idx}건의 데이터가 로드 되었습니다.`,
 						});
 					}
 				});
@@ -132,9 +128,7 @@ sap.ui.define(
 
 				if (sCategorySelectedKey === "userIds") {
 					if (!this.aUserIds.length) {
-						MessageBox.information(
-							"업로드된 사번이 없습니다. 안내문을 읽고 다시 조회해주세요."
-						);
+						MessageBox.information("업로드된 사번이 없습니다. 안내문을 읽고 다시 조회해주세요.");
 						return;
 					} else {
 						sQuery = this.aUserIds;
@@ -172,7 +166,7 @@ sap.ui.define(
 					}
 				}
 
-				if(oComponent._bIsDev) {
+				if (oComponent._bIsDev) {
 					oComponent._gUserId = "minchoul.jung@doosan.com";
 				}
 
@@ -236,15 +230,11 @@ sap.ui.define(
 					jQuery.sap.addUrlWhitelist("blob");
 					this._pdfViewer.setShowDownloadButton(false);
 					this._pdfViewer.setSource(pdfUrl);
-					this._pdfViewer.setTitle(
-						`${oTargetObject.lastName} ${oTargetObject.firstName} ${oTargetObject.title} Profile`
-					);
+					this._pdfViewer.setTitle(`${oTargetObject.lastName} ${oTargetObject.firstName} ${oTargetObject.title} Profile`);
 					this._pdfViewer.open();
 				} catch (err) {
 					console.log(err);
-					MessageBox.error(
-						"보고서 생성 중 오류가 발생했습니다. 담당자에게 문의해주세요"
-					);
+					MessageBox.error("보고서 생성 중 오류가 발생했습니다. 담당자에게 문의해주세요");
 				}
 			},
 
@@ -255,9 +245,7 @@ sap.ui.define(
 				//const oData = oTable.getModel().getData();
 				// 메일 발송 버튼 예외 체크
 				if (aItems.length === 0) {
-					MessageBox.information(
-						"조회결과에서 프로필을 다운받고자 하는 대상자를 체크해 주세요."
-					);
+					MessageBox.information("조회결과에서 프로필을 다운받고자 하는 대상자를 체크해 주세요.");
 					return;
 				}
 				let aPersonId = [];
@@ -265,7 +253,7 @@ sap.ui.define(
 				for (const oItem of aItems) {
 					const oContext = oItem.getBindingContext();
 					const oObj = oContext.getProperty(null, oContext);
-					console.log(oObj);
+
 					let oUserParam = {
 						personId: oObj.personId,
 						userId: oObj.userId,
@@ -275,27 +263,35 @@ sap.ui.define(
 				}
 
 				const oParam = {
+					userId: "seokjun.cho",
+					token: "", // 로그인 사용자 토큰
 					format: "HDI", // HDI : 현대중공업 포멧, GROUP : 그룹 공통 포멧
 					properties: {
 						lang: "ko_KR", // PDF 언어 선택
 						pageOrientation: "portrait",
 						fontSize: 8,
 					},
-					token: "", // 로그인 사용자 토큰
 					aUser: aPersonId, // 배열 길이가 1이면 PDF 파일, 2이상이면 zip 파일 제공
 				};
-				const oFile = await this.connect("POST", "profile", oParam);
-				//console.log(oFile);
+				try {
+					// 소켓 연결이 완료 될 때 까지 대기, 연결 실패 시 catch로 넘어감
+					await this.connectWebSocket();
 
-				let a = document.createElement("a");
-				let url = window.URL.createObjectURL(oFile);
-				a.href = url;
-				a.download = "profiles.zip";
+					const oFile = await this.connect("POST", "profile", oParam);
 
-				document.body.append(a);
-				a.click();
-				a.remove();
-				window.URL.revokeObjectURL(url);
+					let a = document.createElement("a");
+					let url = window.URL.createObjectURL(oFile);
+					a.href = url;
+					a.download = "profiles.zip";
+
+					document.body.append(a);
+					a.click();
+					a.remove();
+					window.URL.revokeObjectURL(url);
+				} catch (err) {
+					console.log(err);
+					return Promise.reject(err);
+				}
 			},
 
 			// 재직구분 formatter
@@ -318,8 +314,7 @@ sap.ui.define(
 				this._oGlobalFilter = null;
 
 				oBinding.attachChange((oFilterEvent) => {
-					this.byId("resultTableTitle")
-						.setText(`대상자 (${oFilterEvent.getSource().iLength})`);
+					this.byId("resultTableTitle").setText(`대상자 (${oFilterEvent.getSource().iLength})`);
 				});
 
 				if (sQuery) {
@@ -341,6 +336,39 @@ sap.ui.define(
 				} else {
 					oBinding.filter(null);
 				}
+			},
+
+			connectWebSocket: function () {
+				return new Promise((resolve, reject) => {
+					this.connection = new WebSocket("ws://localhost:8080"); // 서버와 연결
+					// 연결 완료 시
+					this.connection.attachOpen(() => {
+						console.log("Open Connection");
+						this.connection.send(JSON.stringify({ type: "new", userId: "seokjun.cho" }));
+						resolve(true);
+					});
+					// Error Handler
+					this.connection.attachError(() => {
+						reject("Socker Error");
+					});
+					// 연결 Close 시 Handler
+					this.connection.attachClose(() => {
+						console.log("Close Connection");
+					});
+					// 메시지 수신 시 Handler
+					this.connection.attachMessage((oEvent) => {
+						const oMessage = JSON.parse(oEvent.getParameter("data"));
+						console.log(oMessage);
+						// isComplete 메세지를 받았을 경우 소켓 종료
+						if (oMessage.isComplete) {
+							this.disconnectWebSocket();
+						}
+					});
+				});
+			},
+
+			disconnectWebSocket: function () {
+				this.connection.close();
 			},
 		});
 	}

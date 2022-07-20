@@ -1,159 +1,175 @@
-<mvc:View controllerName="com.hdi.myProfile.controller.Result" displayBlock="true"
-  xmlns:f="sap.f"
-  xmlns:fb="sap.ui.comp.filterbar"
-  xmlns:l="sap.ui.layout"
-  xmlns="sap.m"
-  xmlns:mvc="sap.ui.core.mvc"
-  xmlns:core="sap.ui.core"
-  xmlns:tnt="sap.tnt" height="100%">
-  <f:DynamicPage id="subjectPersonPage" headerExpanded="true" class="sapUiSizeCompact" fitContent="true">
-    <f:header>
-      <f:DynamicPageHeader pinnable="false" class="noPadding">
-        <!--
+<mvc:View
+	controllerName="com.hdi.myProfile.controller.Result"
+	displayBlock="true"
+	xmlns:f="sap.f"
+	xmlns:fb="sap.ui.comp.filterbar"
+	xmlns:l="sap.ui.layout"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:core="sap.ui.core"
+	xmlns:tnt="sap.tnt"
+	height="100%"
+>
+    <f:DynamicPage id="subjectPersonPage" headerExpanded="true" class="sapUiSizeCompact" fitContent="true">
+        <f:header>
+            <f:DynamicPageHeader pinnable="false" class="noPadding">
+                <!--
         <MessageStrip text="설문리스트와 회사를 모두 선택하면 직책, 직위 등은 각 회사에 맞게 자동 세팅됩니다." showCloseButton="true" showIcon="true" customIcon="sap-icon://information" />
         -->
-        <l:BlockLayout>
-          <l:BlockLayoutRow>
-            <l:BlockLayoutCell class="mainBackground">
-              <VBox alignItems="Start" justifyContent="Center">
-                <VBox class="backgroudMiddleVBox">
-                  <VBox height="1rem"/>
-                  <Text text="다양한 방법으로 프로필을 조회 할 수 있습니다." class="mainText1Row"/>
-                  <VBox height="2rem"/>
-                  <HBox>
-                    <VBox>
-                      <Text text="재직구분" class="subTextTitle"/>
-                      <MultiComboBox id="statusMCB" width="12rem" selectedKeys="3">
-                        <items>
-                          <core:ListItem key="3" text="재직"/>
-                          <core:ListItem key="1" text="휴직"/>
-                          <core:ListItem key="0" text="퇴직"/>
-                        </items>
-                      </MultiComboBox>
-                    </VBox>
-                    <HBox width="1rem"/>
-                    <VBox>
-                      <Text text="검색방법" class="subTextTitle"/>
-                      <Select id="categorySelect" width="12rem" change="onChangeCategory">
-                        <items>
-                          <core:ListItem key="ename" text="성명으로 검색"/>
-                          <core:ListItem key="userId" text="사번으로 검색"/>
-                          <core:ListItem key="orgeh" text="조직명으로 검색"/>
-                          <core:ListItem key="userIds" text="사번으로 대량 검색"/>
-                        </items>
-                      </Select>
-                    </VBox>
-                    <HBox width="1rem"/>
-                    <VBox id="searchVBox">
-                      <Text text="검색어" class="subTextTitle"/>
-                      <SearchField id="querySF" search="onSearch" width="20rem" placeholder="입력 예시) 김 현대 (성명), 현대 (이름)"/>
-                    </VBox>
-                    <VBox id="uploadVBox" visible="false">
-                      <Text text="업로드" class="subTextTitle"/>
-                      <Button type="Emphasized" text="사번 Upload" press="onPressUpload"/>
-                    </VBox>
-                  </HBox>
-                </VBox>
+                <l:BlockLayout>
+                    <l:BlockLayoutRow>
+                        <l:BlockLayoutCell class="mainBackground">
+                            <VBox alignItems="Start" justifyContent="Center">
+                                <VBox class="backgroudMiddleVBox">
+                                    <VBox height="1rem" />
+                                    <Text text="다양한 방법으로 프로필을 조회 할 수 있습니다." class="mainText1Row" />
+                                    <VBox height="2rem" />
+                                    <HBox>
+                                        <VBox>
+                                            <Text text="재직구분" class="subTextTitle" />
+                                            <MultiComboBox id="statusMCB" width="12rem" selectedKeys="3">
+                                                <items>
+                                                    <core:ListItem key="3" text="재직" />
+                                                    <core:ListItem key="1" text="휴직" />
+                                                    <core:ListItem key="0" text="퇴직" />
+                                                </items>
+                                            </MultiComboBox>
+                                        </VBox>
+                                        <HBox width="1rem" />
+                                        <VBox>
+                                            <Text text="검색방법" class="subTextTitle" />
+                                            <Select id="categorySelect" width="12rem" change="onChangeCategory">
+                                                <items>
+                                                    <core:ListItem key="ename" text="성명으로 검색" />
+                                                    <core:ListItem key="userId" text="사번으로 검색" />
+                                                    <core:ListItem key="orgeh" text="조직명으로 검색" />
+                                                    <core:ListItem key="userIds" text="사번으로 대량 검색" />
+                                                </items>
+                                            </Select>
+                                        </VBox>
+                                        <HBox width="1rem" />
+                                        <VBox id="searchVBox">
+                                            <Text text="검색어" class="subTextTitle" />
+                                            <SearchField id="querySF" search="onSearch" width="20rem" placeholder="입력 예시) 김 현대 (성명), 현대 (이름)" />
+                                        </VBox>
+                                        <VBox id="uploadVBox" visible="false">
+                                            <Text text="업로드" class="subTextTitle" />
+                                            <Button type="Emphasized" text="사번 Upload" press="onPressUpload" />
+                                        </VBox>
+                                    </HBox>
+                                </VBox>
 
-                <VBox class="stars"/>
-                <VBox class="stars2"/>
-                <VBox class="stars3"/>
-                <VBox class="stars4"/>
-              </VBox>
-            </l:BlockLayoutCell>
-          </l:BlockLayoutRow>
-        </l:BlockLayout>
+                                <VBox class="stars" />
+                                <VBox class="stars2" />
+                                <VBox class="stars3" />
+                                <VBox class="stars4" />
+                            </VBox>
+                        </l:BlockLayoutCell>
+                    </l:BlockLayoutRow>
+                </l:BlockLayout>
 
-      </f:DynamicPageHeader>
-    </f:header>
-    <f:content>
-      <VBox>
-        <Table id="resultTable" growing="true" growingScrollToLoad="true" growingThreshold="50" contextualWidth="Auto" popinLayout="GridSmall" noDataText="검색 결과가 없습니다." items="{path: '/data'}" sticky="HeaderToolbar,InfoToolbar,ColumnHeaders" mode="MultiSelect" includeItemInSelection="true">
-          <headerToolbar>
-            <Toolbar>
-              <Title id="resultTableTitle" text="조회결과 (0)" level="H2" />
-              <ToolbarSpacer />
-              <Button type="Ghost" icon="sap-icon://pdf-attachment" text="프로필 다운로드" press="onPressReportDownload" />
-              <ToolbarSeparator />
-              <SearchField placeholder="Filter(내용검색)" search="filterGlobally" width="15rem" />
-            </Toolbar>
-          </headerToolbar>
-          <columns>
-            <Column width="10%" hAlign="Center">
-              <header>
-                <Label text="Person ID" />
-              </header>
-            </Column>
-            <Column width="10%" hAlign="Center">
-              <header>
-                <Label text="사번" />
-              </header>
-            </Column>
-            <Column width="20%" hAlign="Center" minScreenWidth="Desktop" demandPopin="true">
-              <header>
-                <Label text="회사" />
-              </header>
-            </Column>
-            <Column width="15%" hAlign="Center">
-              <header>
-                <Text text="조직명" />
-              </header>
-            </Column>
-            <Column width="15%" hAlign="Center">
-              <header>
-                <Label text="성명" />
-              </header>
-            </Column>
-            <Column width="15%" hAlign="Center">
-              <header>
-                <Text text="직위" />
-              </header>
-            </Column>
-            <Column width="15%" hAlign="Center">
-              <header>
-                <Text text="직책" />
-              </header>
-            </Column>
-            <Column width="15%" hAlign="Center">
-              <header>
-                <Text text="직군" />
-              </header>
-            </Column>
-            <Column width="15%" hAlign="Center">
-              <header>
-                <Text text="사원유형" />
-              </header>
-            </Column>
-            <Column width="15%" hAlign="Center">
-              <header>
-                <Text text="재직구분" />
-              </header>
-            </Column>
-            <Column width="15%" hAlign="Center">
-              <header>
-                <Text text="추가기능" />
-              </header>
-            </Column>
-          </columns>
-          <items>
-            <ColumnListItem>
-              <cells>
-                <Label text="{personId}" />
-                <Label text="{userId}" />
-                <Label text="{company}" wrapping="true" />
-                <Label text="{department}" wrapping="true" />
-                <Label text="{lastName} {firstName}" />
-                <Label text="{title}" />
-                <Label text="{position}" />
-                <Label text="{jobGroup}" />
-                <Label text="{empType}" />
-                <Label text="{path:'status', formatter:'.statusFormatter'}" />
-                <Button icon="sap-icon://pdf-reader" type="Accept" text="프로필 보기" press="onPressProfileOpen"/>
-              </cells>
-            </ColumnListItem>
-          </items>
-        </Table>
-      </VBox>
-    </f:content>
-  </f:DynamicPage>
+            </f:DynamicPageHeader>
+        </f:header>
+        <f:content>
+            <VBox>
+                <Table
+					id="resultTable"
+					growing="true"
+					growingScrollToLoad="true"
+					growingThreshold="50"
+					contextualWidth="Auto"
+					popinLayout="GridSmall"
+					noDataText="검색 결과가 없습니다."
+					items="{path: '/data'}"
+					sticky="HeaderToolbar,InfoToolbar,ColumnHeaders"
+					mode="MultiSelect"
+					includeItemInSelection="true"
+				>
+                    <headerToolbar>
+                        <Toolbar>
+                            <Title id="resultTableTitle" text="조회결과 (0)" level="H2" />
+                            <ToolbarSpacer />
+                            <Button type="Ghost" icon="sap-icon://pdf-attachment" text="프로필 다운로드" press="onPressReportDownload" />
+                            <ToolbarSeparator />
+                            <SearchField placeholder="Filter(내용검색)" search="filterGlobally" width="15rem" />
+                        </Toolbar>
+                    </headerToolbar>
+                    <columns>
+                        <Column width="10%" hAlign="Center">
+                            <header>
+                                <Label text="Person ID" />
+                            </header>
+                        </Column>
+                        <Column width="10%" hAlign="Center">
+                            <header>
+                                <Label text="사번" />
+                            </header>
+                        </Column>
+                        <Column width="20%" hAlign="Center" minScreenWidth="Desktop" demandPopin="true">
+                            <header>
+                                <Label text="회사" />
+                            </header>
+                        </Column>
+                        <Column width="15%" hAlign="Center">
+                            <header>
+                                <Text text="조직명" />
+                            </header>
+                        </Column>
+                        <Column width="15%" hAlign="Center">
+                            <header>
+                                <Label text="성명" />
+                            </header>
+                        </Column>
+                        <Column width="15%" hAlign="Center">
+                            <header>
+                                <Text text="직위" />
+                            </header>
+                        </Column>
+                        <Column width="15%" hAlign="Center">
+                            <header>
+                                <Text text="직책" />
+                            </header>
+                        </Column>
+                        <Column width="15%" hAlign="Center">
+                            <header>
+                                <Text text="직군" />
+                            </header>
+                        </Column>
+                        <Column width="15%" hAlign="Center">
+                            <header>
+                                <Text text="사원유형" />
+                            </header>
+                        </Column>
+                        <Column width="15%" hAlign="Center">
+                            <header>
+                                <Text text="재직구분" />
+                            </header>
+                        </Column>
+                        <Column width="15%" hAlign="Center">
+                            <header>
+                                <Text text="추가기능" />
+                            </header>
+                        </Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem>
+                            <cells>
+                                <Label text="{personId}" />
+                                <Label text="{userId}" />
+                                <Label text="{company}" wrapping="true" />
+                                <Label text="{department}" wrapping="true" />
+                                <Label text="{lastName} {firstName}" />
+                                <Label text="{title}" />
+                                <Label text="{position}" />
+                                <Label text="{jobGroup}" />
+                                <Label text="{empType}" />
+                                <Label text="{path:'status', formatter:'.statusFormatter'}" />
+                                <Button icon="sap-icon://pdf-reader" type="Accept" text="프로필 보기" press="onPressProfileOpen" />
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+            </VBox>
+        </f:content>
+    </f:DynamicPage>
 </mvc:View>
