@@ -1,15 +1,19 @@
-<mvc:View controllerName="com.hdi.myProfile.controller.Result" displayBlock="true"
-  xmlns:f="sap.f"
-  xmlns:fb="sap.ui.comp.filterbar"
-  xmlns:l="sap.ui.layout"
-  xmlns="sap.m"
-  xmlns:mvc="sap.ui.core.mvc"
-  xmlns:core="sap.ui.core"
-  xmlns:tnt="sap.tnt" height="100%">
-  <f:DynamicPage id="subjectPersonPage" headerExpanded="true" class="sapUiSizeCompact" fitContent="true">
-    <f:header>
-      <f:DynamicPageHeader pinnable="false" class="noPadding">
-        <!--
+<mvc:View
+	controllerName="com.hdi.myProfile.controller.Result"
+	displayBlock="true"
+	xmlns:f="sap.f"
+	xmlns:fb="sap.ui.comp.filterbar"
+	xmlns:l="sap.ui.layout"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:core="sap.ui.core"
+	xmlns:tnt="sap.tnt"
+	height="100%"
+>
+    <f:DynamicPage id="subjectPersonPage" headerExpanded="true" class="sapUiSizeCompact" fitContent="true">
+        <f:header>
+            <f:DynamicPageHeader pinnable="false" class="noPadding">
+                <!--
         <MessageStrip text="설문리스트와 회사를 모두 선택하면 직책, 직위 등은 각 회사에 맞게 자동 세팅됩니다." showCloseButton="true" showIcon="true" customIcon="sap-icon://information" />
         -->
         <l:BlockLayout>
@@ -56,15 +60,14 @@
                   </HBox>
                 </VBox>
 
-                <VBox class="stars"/>
-                <VBox class="stars2"/>
-                <VBox class="stars3"/>
-                <VBox class="stars4"/>
-              </VBox>
-            </l:BlockLayoutCell>
-          </l:BlockLayoutRow>
-        </l:BlockLayout>
-
+                                <VBox class="stars" />
+                                <VBox class="stars2" />
+                                <VBox class="stars3" />
+                                <VBox class="stars4" />
+                            </VBox>
+                        </l:BlockLayoutCell>
+                    </l:BlockLayoutRow>
+                </l:BlockLayout>
       </f:DynamicPageHeader>
     </f:header>
     <f:content>
