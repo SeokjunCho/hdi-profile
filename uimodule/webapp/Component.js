@@ -29,6 +29,7 @@ sap.ui.define([
                 this._gAuth = "";
                 this._gAdmin = "";
                 this._gTimeStamp = "";
+                this._gLang = "ko_KR"; //default value
                 //this._gIsNormalAccess = "";
                 //this._gIsLoginInfo = "";
     

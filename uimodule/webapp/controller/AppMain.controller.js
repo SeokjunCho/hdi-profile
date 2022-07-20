@@ -48,6 +48,7 @@ sap.ui.define(
 			},
 
             onSelectLang: function(oEvent) {
+                const oComponent = this.getOwnerComponent();
                 const oItem = oEvent.getSource();
                 const oTitle = oItem.getTitle();
                 const oDesc = oItem.getDescription();
@@ -58,12 +59,15 @@ sap.ui.define(
                 if(oDesc === "KO") {
                     console.log("KO Changed!");
                     sap.ui.getCore().getConfiguration().setLanguage("ko");
+                    oComponent._gLang = "ko_KR";
                 } else if (oDesc === "EN") {
                     console.log("EN Changed!");
                     sap.ui.getCore().getConfiguration().setLanguage("en");
+                    oComponent._gLang = "en_US";
                 } else { // ZH
                     console.log("ZH Changed!");
                     sap.ui.getCore().getConfiguration().setLanguage("zh");
+                    oComponent._gLang = "zh_CH";
                 }
                 this.onPressLangClose();
             },

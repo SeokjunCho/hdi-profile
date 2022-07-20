@@ -158,6 +158,7 @@ sap.ui.define(
 					orgeh: "", // 조직 이름
 					ename: "", // 직원 이름
 					status: aStatusMCBKeys,
+					lang: oComponent._gLang
 				};
 
 				if (sCategorySelectedKey === "ename") {
@@ -193,11 +194,14 @@ sap.ui.define(
 				oModel.setProperty("/data", aResult);
 
 				oTable.setModel(oModel);
-				oTitle.setText(`조회결과 (${aResult.length})`);
+
+				const sResultTxt = this.getModel("i18n").getResourceBundle().getText("searchResult"); //조회결과
+				oTitle.setText(`${sResultTxt} (${aResult.length})`);
 			},
 
 			onPressProfileOpen: async function (oEvent) {
 				console.log("Profile Open (Fragment)");
+				const oComponent = this.getOwnerComponent();
 				//Circle 보고서 조회 부분 참고
 				const oButton = oEvent.getSource();
 				const oBindingContext = oButton.getBindingContext();
@@ -212,7 +216,7 @@ sap.ui.define(
 						isPrimary: oTargetObject.isPrimary,
 					};
 
-					const key = `${oTargetObject.state}_${oTargetObject.userId}`;
+					const key = `${oTargetObject.state}_${oTargetObject.userId}_${oComponent._gLang}`;
 					let pdfUrl = "";
 
 					if (this._pdfUrlMap.has(key)) {
@@ -221,7 +225,7 @@ sap.ui.define(
 						const oParam = {
 							format: "HDI", // HDI : 현대중공업 포멧, GROUP : 그룹 공통 포멧
 							properties: {
-								lang: "ko_KR", // PDF 언어 선택
+								lang: oComponent._gLang, // PDF 언어 선택
 								pageOrientation: "portrait",
 								fontSize: 8,
 							},
@@ -249,6 +253,7 @@ sap.ui.define(
 			},
 
 			onPressReportDownload: async function (oEvent) {
+				const oComponent = this.getOwnerComponent();
 				const oTable = this.byId("resultTable");
 				const aItems = oTable.getSelectedItems();
 
@@ -277,7 +282,7 @@ sap.ui.define(
 				const oParam = {
 					format: "HDI", // HDI : 현대중공업 포멧, GROUP : 그룹 공통 포멧
 					properties: {
-						lang: "ko_KR", // PDF 언어 선택
+						lang: oComponent._gLang, // PDF 언어 선택
 						pageOrientation: "portrait",
 						fontSize: 8,
 					},
