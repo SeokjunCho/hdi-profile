@@ -9,18 +9,19 @@ sap.ui.define(
 		"use strict";
 
 		return Controller.extend("com.hdi.myProfile.controller.AppMain", {
-			onInit: function () {},
+			onInit: function () {
+            },
 
 			onChangeThemeMode: function () {
 				const oBtn = this.byId("themeBtn");
 				if (oBtn.getIcon() === "sap-icon://lightbulb") {
 					sap.ui.getCore().applyTheme("sap_fiori_3");
 					this.byId("themeBtn").setIcon("sap-icon://master-task-triangle");
-					this.byId("themeBtn").setText("다크 모드로 보기");
+					this.byId("themeBtn").setText(this.getView().getModel("i18n").getResourceBundle().getText("darkMode"));
 				} else {
 					sap.ui.getCore().applyTheme("sap_fiori_3_dark");
 					this.byId("themeBtn").setIcon("sap-icon://lightbulb");
-					this.byId("themeBtn").setText("라이트 모드로 보기");
+					this.byId("themeBtn").setText(this.getView().getModel("i18n").getResourceBundle().getText("lightMode"));
 				}
 			},
 

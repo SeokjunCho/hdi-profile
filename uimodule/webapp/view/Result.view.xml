@@ -27,10 +27,11 @@
                   <VBox height="2rem"/>
                   <HBox>
                     <VBox>
-                      <Text text="재직구분" class="subTextTitle"/>
+                      <!-- 재직상태 -->
+                      <Text text="{i18n>employmentStatus}" class="subTextTitle"/>
                       <MultiComboBox id="statusMCB" width="12rem" selectedKeys="3">
                         <items>
-                          <core:ListItem key="3" text="재직"/>
+                          <core:ListItem key="3" text="{i18n>active}"/> <!-- 재직 -->
                           <core:ListItem key="1" text="휴직"/>
                           <core:ListItem key="0" text="퇴직"/>
                         </items>

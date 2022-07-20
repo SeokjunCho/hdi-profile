@@ -189,7 +189,7 @@ sap.ui.define(
 
 				oTable.setModel(oModel);
 
-				const sResultTxt = this.getModel("i18n").getResourceBundle().getText("searchResult"); //조회결과
+				const sResultTxt = this.getView().getModel("i18n").getResourceBundle().getText("searchResult"); //조회결과
 				oTitle.setText(`${sResultTxt} (${aResult.length})`);
 			},
 
@@ -217,7 +217,7 @@ sap.ui.define(
 						pdfUrl = this._pdfUrlMap.get(key);
 					} else {
 						const oParam = {
-							userId: "", // 로그인 사용자 User ID
+							userId: "minchoul.jung", // 로그인 사용자 User ID
 							token: "", // 로그인 사용자 토큰
 							format: "HDI", // HDI : 현대중공업 포멧, GROUP : 그룹 공통 포멧
 							properties: {
@@ -269,7 +269,7 @@ sap.ui.define(
 				}
 
 				const oParam = {
-					userId: "seokjun.cho",
+					userId: "minchoul.jung",
 					token: "", // 로그인 사용자 토큰
 					format: "HDI", // HDI : 현대중공업 포멧, GROUP : 그룹 공통 포멧
 					properties: {
@@ -350,7 +350,7 @@ sap.ui.define(
 					// 연결 완료 시
 					this.connection.attachOpen(() => {
 						console.log("Open Connection");
-						this.connection.send(JSON.stringify({ type: "new", userId: "seokjun.cho" }));
+						this.connection.send(JSON.stringify({ type: "new", userId: "minchoul.jung" }));
 						resolve(true);
 					});
 					// Error Handler

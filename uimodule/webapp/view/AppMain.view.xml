@@ -18,8 +18,8 @@
 
                     <Button id="changeLangBtn" icon="sap-icon://world" type="Default" text="한국어(KO)" press="onChangeLang"/>
 
-                    <Button id="themeBtn" icon="sap-icon://lightbulb" text="라이트 모드로 보기" type="Default" press="onChangeThemeMode" />
-                    <Button id="manualDownBtn" icon="sap-icon://download-from-cloud" text="매뉴얼 다운로드" type="Default" press="onPressCommonManualDownload" />
+                    <Button id="themeBtn" icon="sap-icon://lightbulb" text="{i18n>lightMode}" type="Default" press="onChangeThemeMode" />
+                    <Button id="manualDownBtn" icon="sap-icon://download-from-cloud" text="{i18n>downloadManual}" type="Default" press="onPressCommonManualDownload" />
                 </tnt:ToolHeader>
             </tnt:header>
             <!--
