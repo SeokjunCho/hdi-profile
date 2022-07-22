@@ -68,7 +68,7 @@ sap.ui.define(
                 } else { // ZH
                     console.log("ZH Changed!");
                     sap.ui.getCore().getConfiguration().setLanguage("zh");
-                    oComponent._gLang = "zh_CH";
+                    oComponent._gLang = "zh_CN";
                 }
                 this.onPressLangClose();
             },

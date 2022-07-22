@@ -346,7 +346,19 @@ sap.ui.define(
 
 			connectWebSocket: function () {
 				return new Promise((resolve, reject) => {
-					this.connection = new WebSocket("ws://localhost:8080"); // 서버와 연결
+					const oComponet = this.getOwnerComponent();
+
+					let sWsUrl = "";
+					if (oComponent._bIsDev) {
+						sWsUrl = "ws://localhost:8080";
+					} else {
+						sWsUrl = "ws://hdi-profile-back.cfapps.ap12.hana.ondemand.com:8080";
+					}
+
+					console.log(sWsUrl);
+
+					this.connection = new WebSocket(sWsUrl); // 서버와 연결
+
 					// 연결 완료 시
 					this.connection.attachOpen(() => {
 						console.log("Open Connection");
