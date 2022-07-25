@@ -281,8 +281,10 @@ sap.ui.define(
 				};
 				try {
 					// 소켓 연결이 완료 될 때 까지 대기, 연결 실패 시 catch로 넘어감
-					await this.connectWebSocket();
-
+					if(oComponent._bIsDev) {
+						await this.connectWebSocket();
+					}
+					
 					const oFile = await this.connect("POST", "profile", oParam);
 
 					let a = document.createElement("a");
@@ -389,32 +391,6 @@ sap.ui.define(
 						console.log(error);
 						reject("Socker Error");
 					});
-
-					/*
-					// 연결 완료 시
-					this.connection.attachOpen(() => {
-						console.log("Open Connection");
-						this.connection.send(JSON.stringify({ type: "new", userId: "minchoul.jung" }));
-						resolve(true);
-					});
-					// Error Handler
-					this.connection.attachError(() => {
-						reject("Socker Error");
-					});
-					// 연결 Close 시 Handler
-					this.connection.attachClose(() => {
-						console.log("Close Connection");
-					});
-					// 메시지 수신 시 Handler
-					this.connection.attachMessage((oEvent) => {
-						const oMessage = JSON.parse(oEvent.getParameter("data"));
-						console.log(oMessage);
-						// isComplete 메세지를 받았을 경우 소켓 종료
-						if (oMessage.isComplete) {
-							this.disconnectWebSocket();
-						}
-					});
-					*/
 				});
 			},
 
