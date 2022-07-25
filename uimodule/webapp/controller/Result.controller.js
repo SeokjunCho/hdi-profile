@@ -359,6 +359,35 @@ sap.ui.define(
 
 					this.connection = new WebSocket(sWsUrl); // 서버와 연결
 
+					this.connection.onopen (() => {
+						console.log("Open Connection");
+						this.connection.send(JSON.stringify({ type: "new", userId: "minchoul.jung" }));
+						resolve(true);
+					});
+					
+					this.connection.onmessage ((event) => {
+						const oMessage = JSON.parse(oEvent.getParameter("data"));
+						console.log(oMessage);
+						// isComplete 메세지를 받았을 경우 소켓 종료
+						if (oMessage.isComplete) {
+							this.disconnectWebSocket();
+						}
+					});
+					
+					this.connection.onclose ((event) => {
+						if (event.wasClean) {
+							alert(`[close] 커넥션이 정상적으로 종료되었습니다(code=${event.code} reason=${event.reason})`);
+						} else {
+							console.log("Close Connection");
+						}
+					});
+					
+					this.connection.onerror ((error) => {
+						console.log(`[error] ${error.message}`);
+						reject("Socker Error");
+					});
+
+					/*
 					// 연결 완료 시
 					this.connection.attachOpen(() => {
 						console.log("Open Connection");
@@ -382,6 +411,7 @@ sap.ui.define(
 							this.disconnectWebSocket();
 						}
 					});
+					*/
 				});
 			},
 
