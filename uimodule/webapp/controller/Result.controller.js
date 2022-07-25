@@ -346,7 +346,7 @@ sap.ui.define(
 
 			connectWebSocket: function () {
 				return new Promise((resolve, reject) => {
-					const oComponet = this.getOwnerComponent();
+					const oComponent = this.getOwnerComponent();
 
 					let sWsUrl = "";
 					if (oComponent._bIsDev) {
