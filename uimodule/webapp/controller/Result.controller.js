@@ -352,7 +352,7 @@ sap.ui.define(
 					if (oComponent._bIsDev) {
 						sWsUrl = "ws://localhost:8080";
 					} else {
-						sWsUrl = "wss://hdi-profile-back.cfapps.ap12.hana.ondemand.com:8080";
+						sWsUrl = "ws://hdi-profile-back.cfapps.ap12.hana.ondemand.com:8080";
 					}
 
 					console.log(sWsUrl);
