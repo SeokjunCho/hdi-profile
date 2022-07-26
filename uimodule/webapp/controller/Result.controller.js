@@ -119,6 +119,7 @@ sap.ui.define(
 			onSearch: async function (oEvent) {
 				console.log("onSearch!");
 				const oComponent = this.getOwnerComponent();
+				console.log(oComponent);
 				const oCategorySelect = this.byId("categorySelect");
 				const sCategorySelectedKey = oCategorySelect.getSelectedKey();
 
@@ -146,6 +147,13 @@ sap.ui.define(
 				console.log(sCategorySelectedKey);
 				console.log(sQuery);
 
+				console.log("gUserId from user search!");
+				console.log(oComponent._gUserId);
+				let oParam = {
+					userId: oComponent._gUserId, // 로그인 사용자 Person ID
+					token: oComponent._gToken, // 로그인 사용자 토근
+				};
+
 				let oAddParam = {
 					aPersonId: [],
 					aUserId: [],
@@ -167,16 +175,11 @@ sap.ui.define(
 					}
 				}
 
-				if (oComponent._bIsDev) {
-					oComponent._gUserId = "minchoul.jung@doosan.com";
-				}
-
-				let oParam = {
-					userId: oComponent._gUserId, // 로그인 사용자 Person ID
-					token: "", // 로그인 사용자 토근
-				};
 
 				oParam = Object.assign({}, oParam, oAddParam);
+
+				console.log("user oParam : ");
+				console.log(oParam);
 
 				const aResult = await this.connect("POST", "user", oParam);
 				console.log("=== result === ");
@@ -217,8 +220,8 @@ sap.ui.define(
 						pdfUrl = this._pdfUrlMap.get(key);
 					} else {
 						const oParam = {
-							userId: "minchoul.jung", // 로그인 사용자 User ID
-							token: "", // 로그인 사용자 토큰
+							userId: oComponent._gUserId, // 로그인 사용자 User ID
+							token: oComponent._gToken, // 로그인 사용자 토큰
 							format: "HDI", // HDI : 현대중공업 포멧, GROUP : 그룹 공통 포멧
 							properties: {
 								lang: oComponent._gLang, // PDF 언어 선택
@@ -269,8 +272,8 @@ sap.ui.define(
 				}
 
 				const oParam = {
-					userId: "minchoul.jung",
-					token: "", // 로그인 사용자 토큰
+					userId: oComponent._gUserId,
+					token: oComponent._gToken, // 로그인 사용자 토큰
 					format: "HDI", // HDI : 현대중공업 포멧, GROUP : 그룹 공통 포멧
 					properties: {
 						lang: oComponent._gLang, // PDF 언어 선택
@@ -354,6 +357,7 @@ sap.ui.define(
 					if (oComponent._bIsDev) {
 						sWsUrl = "ws://localhost:8080";
 					} else {
+						/* wss:// 방식도 고려할것 */
 						sWsUrl = "ws://hdi-profile-back.cfapps.ap12.hana.ondemand.com:8080";
 					}
 
@@ -362,10 +366,12 @@ sap.ui.define(
 					this.connection = new WebSocket(sWsUrl); // 서버와 연결
 
 					console.log(this.connection);
+					console.log("ws id : ");
+					console.log(oComponent._gUserId);
 
 					this.connection.attachOpen (() => {
 						console.log("Open Connection");
-						this.connection.send(JSON.stringify({ type: "new", userId: "minchoul.jung" }));
+						this.connection.send(JSON.stringify({ type: "new", userId: oComponent._gUserId }));
 						resolve(true);
 					});
 					
@@ -380,7 +386,7 @@ sap.ui.define(
 					
 					this.connection.attachClose ((oEvent) => {
 						if (oEvent.wasClean) {
-							alert(`[close] 커넥션이 정상적으로 종료되었습니다(code=${oEvent.code} reason=${oEvent.reason})`);
+							console.log(`[close] 커넥션이 정상적으로 종료되었습니다(code=${oEvent.code} reason=${oEvent.reason})`);
 						} else {
 							console.log("Close Connection");
 						}

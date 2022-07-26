@@ -22,9 +22,8 @@ sap.ui.define([
                 $("#loader").hide();
                 // Check workspace
                 const sCurLocation = " " + window.location;
-    
                 this._gUserId = "";
-                this._gToken = "";
+                this._gToken = ""; 
                 this._bIsDev = false;
                 this._gAuth = "";
                 this._gAdmin = "";
@@ -61,8 +60,12 @@ sap.ui.define([
             },
         
             onInit: async function() {
-                const oResult = await this.getToken();
-                this._gUserId = oResult.user_name;
+                if (!this._bIsDev) {
+                    const oResult = await this.getToken();
+                    this._gUserId = oResult.user_name;
+                } else {
+                    this._gUserId = "minchoul.jung@doosan.com";
+                }
             },
 
             getToken: function () {
