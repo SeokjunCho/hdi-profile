@@ -10,6 +10,7 @@ modules:
     parameters:
       disk-quota: 512M
       memory: 512M
+      buildpack: https://github.com/cloudfoundry/nodejs-buildpack/releases/download/v1.7.25/nodejs-buildpack-cflinuxfs3-v1.7.25.zip
     requires:
       - name: myProfile_destination
       - name: myProfile_html5_repo_runtime
