@@ -10,35 +10,48 @@ const crypto = require("crypto");
 
 let ar = approuter();
 
-
 ar.beforeRequestHandler.use((req, res, next) => {
-  //console.log("the follow request made...");
-  //console.log("Method: " + req.method);
-  //console.log("URL : " + req.url);
-  next();
+	//console.log("the follow request made...");
+	//console.log("Method: " + req.method);
+	//console.log("URL : " + req.url);
+	next();
 });
 
-ar.beforeRequestHandler.use("/getToken", (req, res) => {
-  res.statusCode = 200;
-  const decodedJWTToken = jwtDecode(req.user.token.accessToken);
+ar.beforeRequestHandler.use("/getJwtInfo", (req, res) => {
+	res.statusCode = 200;
+	const decodedJWTToken = jwtDecode(req.user.token.accessToken);
 
-  /*
-  let vData = {
-    userId: decodedJWTToken.user_name,
-    token: encryptText(decodedJWTToken.user_name)
-  };
-  */
+	const vData = {
+		userId: decodedJWTToken.user_name,
+		token: encryptText(decodedJWTToken.user_name),
+	};
 
-  res.end(JSON.stringify(decodedJWTToken));
+	res.end(JSON.stringify(vData));
 });
 
 ar.start();
 
-
 function encryptText(personId) {
-	const key = crypto.scryptSync("passwd", "salt", 24);
+	// 1. 현재 시간(Locale)
+	const curr = new Date();
+
+	// 2. UTC 시간 계산
+	const utc = curr.getTime() + curr.getTimezoneOffset() * 60 * 1000;
+
+	// 3. UTC to KST (UTC + 9시간)
+	const KR_TIME_DIFF = 9 * 60 * 60 * 1000;
+	const kr_curr = new Date(utc + KR_TIME_DIFF);
+	const datePostFix = kr_curr.getFullYear() + kr_curr.getMonth() + 1 + kr_curr.getDay();
+	const year = kr_curr.getFullYear();
+	const month = ("0" + (kr_curr.getMonth() + 1)).slice(-2);
+	const day = ("0" + kr_curr.getDate()).slice(-2);
+
+	const dateString = `${year}${month}${day}`;
+
+  const key = `s+7Yc+RyD1CghFEDhcYhYQ==${dateString}`; //hdiprofile_
+	const cryptoKey = crypto.scryptSync(beforeKey, "salt", 24);
 	const iv = Buffer.alloc(16, 0);
-	const cipher = crypto.createCipheriv("aes-192-cbc", key, iv);
+	const cipher = crypto.createCipheriv("aes-192-cbc", cryptoKey, iv);
 
 	let result = cipher.update(personId, "utf8", "base64");
 	result += cipher.final("base64");

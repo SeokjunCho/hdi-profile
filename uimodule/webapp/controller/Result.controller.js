@@ -35,6 +35,27 @@ sap.ui.define(
 				this.aUserIds = [];
 			},
 
+			onAfterRendering: async function() {
+
+				await this.getOwnerComponent().getAuth();
+
+				if (!this.getOwnerComponent()._gIsNormalAccess) {
+					//this.loadFragment("RestrictUserPage");
+					console.log("RestrictUserPage");
+				} else if (!this.getOwnerComponent()._gIsLoginInfo) {
+					//this.loadFragment("NoLoginInfoPage");
+					console.log("NoLoginInfoPage");
+				} else { // Normal Case
+					console.log("Normal Login Case ");
+					const oAuth = await this.connect("POST", "user/auth", {
+						userId : this.getOwnerComponent()._gUserId,
+						token : this.getOwnerComponent()._gToken
+					});
+					console.log("=== oAuth ===");
+					console.log(oAuth);
+				}
+			},
+
 			onChangeCategory: function (oEvent) {
 				const sKey = oEvent.getParameters().selectedItem.getKey();
 				const sQuery = this.byId("querySF");
@@ -181,9 +202,13 @@ sap.ui.define(
 				console.log("user oParam : ");
 				console.log(oParam);
 
-				const aResult = await this.connect("POST", "user", oParam);
+				let aResult = await this.connect("POST", "user/search", oParam);
 				console.log("=== result === ");
 				console.log(aResult);
+
+				if(aResult === "AUTH_ERR") { // 권한이 없는 경우 빈 배열로 바인딩
+					aResult = [];
+				}
 
 				const oTable = this.byId("resultTable");
 				const oTitle = this.byId("resultTableTitle");

@@ -1,4 +1,3 @@
-
 // @ts-nocheck
 sap.ui.define(
 	["./BaseController", "sap/ui/core/Fragment"],
@@ -9,8 +8,7 @@ sap.ui.define(
 		"use strict";
 
 		return Controller.extend("com.hdi.myProfile.controller.AppMain", {
-			onInit: function () {
-            },
+			onInit: function () {},
 
 			onChangeThemeMode: function () {
 				const oBtn = this.byId("themeBtn");
@@ -48,36 +46,37 @@ sap.ui.define(
 				});
 			},
 
-            onSelectLang: function(oEvent) {
-                const oComponent = this.getOwnerComponent();
-                const oItem = oEvent.getSource();
-                const oTitle = oItem.getTitle();
-                const oDesc = oItem.getDescription();
+			onSelectLang: function (oEvent) {
+				const oComponent = this.getOwnerComponent();
+				const oItem = oEvent.getSource();
+				const oTitle = oItem.getTitle();
+				const oDesc = oItem.getDescription();
 
-                const oBtn = this.byId("changeLangBtn");
-                oBtn.setText(`${oTitle}(${oDesc})`);
+				const oBtn = this.byId("changeLangBtn");
+				oBtn.setText(`${oTitle}(${oDesc})`);
 
-                if(oDesc === "KO") {
-                    console.log("KO Changed!");
-                    sap.ui.getCore().getConfiguration().setLanguage("ko");
-                    oComponent._gLang = "ko_KR";
-                } else if (oDesc === "EN") {
-                    console.log("EN Changed!");
-                    sap.ui.getCore().getConfiguration().setLanguage("en");
-                    oComponent._gLang = "en_US";
-                } else { // ZH
-                    console.log("ZH Changed!");
-                    sap.ui.getCore().getConfiguration().setLanguage("zh");
-                    oComponent._gLang = "zh_CN";
-                }
-                this.onPressLangClose();
-            },
+				if (oDesc === "KO") {
+					console.log("KO Changed!");
+					sap.ui.getCore().getConfiguration().setLanguage("ko");
+					oComponent._gLang = "ko_KR";
+				} else if (oDesc === "EN") {
+					console.log("EN Changed!");
+					sap.ui.getCore().getConfiguration().setLanguage("en");
+					oComponent._gLang = "en_US";
+				} else {
+					// ZH
+					console.log("ZH Changed!");
+					sap.ui.getCore().getConfiguration().setLanguage("zh");
+					oComponent._gLang = "zh_CN";
+				}
+				this.onPressLangClose();
+			},
 
-            onPressLangClose: function() {
+			onPressLangClose: function () {
 				this._pPopover.then(function (oPopover) {
 					oPopover.close();
 				});
-            }
+			},
 		});
 	}
 );

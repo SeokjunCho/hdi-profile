@@ -14,15 +14,7 @@ sap.ui.define(
 	 * @param {typeof sap.ui.core.routing.History} History
 	 * @param {typeof sap.ui.core.UIComponent} UIComponent
 	 */
-	function (
-		Controller,
-		History,
-		UIComponent,
-		formatter,
-		Fragment,
-		MessageBox,
-		JSONModel
-	) {
+	function (Controller, History, UIComponent, formatter, Fragment, MessageBox, JSONModel) {
 		"use strict";
 
 		return Controller.extend("com.hdi.myProfile.controller.BaseController", {
@@ -159,17 +151,12 @@ sap.ui.define(
 							resolve(results);
 							_gBusyDialog.close();
 							if (!!results.message && results.message !== "") {
-								MessageBox.error(
-									"오류가 발생했습니다. 담당자에게 연락해주세요."
-								);
+								MessageBox.error("오류가 발생했습니다. 담당자에게 연락해주세요.");
 							}
 						},
 						error: function (err) {
-							console.log(err);
-							if (err.statusText.indexOf("localhost") !== -1) {
-								MessageBox.error(
-									"localhost환경입니다. Node Express Back-end서버를 실행시켜주세요."
-								);
+							if (oComponent._bIsDev) {
+								MessageBox.error("err message : " + err.statusText);
 							}
 							reject(err);
 							_gBusyDialog.close();
