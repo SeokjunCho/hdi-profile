@@ -56,7 +56,7 @@ sap.ui.define(["sap/ui/core/UIComponent", "sap/ui/Device", "com/hdi/myProfile/mo
 		getAuth: async function () {
 			this._gBusyDialog.open();
 			if (!this._bIsDev) {
-				const oResult = await this.getJwtInfo();
+				const oResult = await this.getToken();
 
 				if (oResult === "JWT_ERROR" || oResult === "JWT_NULL") {
 					this._gIsNormalAccess = false;
@@ -94,10 +94,10 @@ sap.ui.define(["sap/ui/core/UIComponent", "sap/ui/Device", "com/hdi/myProfile/mo
 			});
 		},
 
-		getJwtInfo: async function () {
+		getToken: async function () {
 			return new Promise((resolve, reject) => {
 				$.ajax({
-					url: "/getJwtInfo",
+					url: "/getToken",
 					method: "GET",
 					datatype: "json",
 					async: true,

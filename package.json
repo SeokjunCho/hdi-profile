@@ -45,7 +45,7 @@
     ]
   },
   "dependencies": {
-    "@sap/approuter": "^11.2.1",
+    "@sap/approuter": "^10.15.4",
     "@sap/html5-repo-mock": "^2.1.0"
   }
 }

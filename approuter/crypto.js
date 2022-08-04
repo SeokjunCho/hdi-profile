@@ -11,22 +11,32 @@ const crypto = require("crypto");
 let ar = approuter();
 
 ar.beforeRequestHandler.use((req, res, next) => {
-	//console.log("the follow request made...");
-	//console.log("Method: " + req.method);
-	//console.log("URL : " + req.url);
+	console.log("the follow request made...");
+	console.log("Method: " + req.method);
+	console.log("URL : " + req.url);
 	next();
 });
 
-ar.beforeRequestHandler.use("/getJwtInfo", (req, res) => {
-	res.statusCode = 200;
-	const decodedJWTToken = jwtDecode(req.user.token.accessToken);
+ar.beforeRequestHandler.use("/getToken", (req, res) => {
+  try {
+    console.log("*** getToken ***");
+    //console.log(req);
+    res.statusCode = 200;
+    const decodedJWTToken = jwtDecode(req.user.token.accessToken);
+  
+    const vData = {
+      userId: decodedJWTToken.user_name,
+      token: encryptText(decodedJWTToken.user_name),
+    };
+  
+    console.log(vData);
+  
+    res.end(JSON.stringify(vData));
+  } catch (err) {
+    console.log("Err");
+    console.log(err);
+  }
 
-	const vData = {
-		userId: decodedJWTToken.user_name,
-		token: encryptText(decodedJWTToken.user_name),
-	};
-
-	res.end(JSON.stringify(vData));
 });
 
 ar.start();
@@ -49,7 +59,7 @@ function encryptText(personId) {
 	const dateString = `${year}${month}${day}`;
 
   const key = `s+7Yc+RyD1CghFEDhcYhYQ==${dateString}`; //hdiprofile_20220804
-	const cryptoKey = crypto.scryptSync(beforeKey, "salt", 24);
+	const cryptoKey = crypto.scryptSync(key, "salt", 24);
 	const iv = Buffer.alloc(16, 0);
 	const cipher = crypto.createCipheriv("aes-192-cbc", cryptoKey, iv);
 
