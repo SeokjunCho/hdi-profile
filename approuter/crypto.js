@@ -48,7 +48,7 @@ function encryptText(personId) {
 
 	const dateString = `${year}${month}${day}`;
 
-  const key = `s+7Yc+RyD1CghFEDhcYhYQ==${dateString}`; //hdiprofile_
+  const key = `s+7Yc+RyD1CghFEDhcYhYQ==${dateString}`; //hdiprofile_20220804
 	const cryptoKey = crypto.scryptSync(beforeKey, "salt", 24);
 	const iv = Buffer.alloc(16, 0);
 	const cipher = crypto.createCipheriv("aes-192-cbc", cryptoKey, iv);
