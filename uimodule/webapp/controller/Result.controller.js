@@ -40,11 +40,9 @@ sap.ui.define(
 				await this.getOwnerComponent().getAuth();
 
 				if (!this.getOwnerComponent()._gIsNormalAccess) {
-					//this.loadFragment("RestrictUserPage");
-					console.log("RestrictUserPage");
+					this.loadFragment("RestrictUserPage");
 				} else if (!this.getOwnerComponent()._gIsLoginInfo) {
-					//this.loadFragment("NoLoginInfoPage");
-					console.log("NoLoginInfoPage");
+					this.loadFragment("NoLoginInfoPage");
 				} else { // Normal Case
 					console.log("Normal Login Case ");
 					const oAuth = await this.connect("POST", "user/auth", {
@@ -53,6 +51,10 @@ sap.ui.define(
 					});
 					console.log("=== oAuth ===");
 					console.log(oAuth);
+
+					if(oAuth !== "AUTH_ACCESS") {
+						this.loadFragment("AuthCheckPage");
+					}
 				}
 			},
 

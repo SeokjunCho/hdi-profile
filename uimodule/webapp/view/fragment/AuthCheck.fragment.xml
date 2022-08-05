@@ -1,0 +1,13 @@
+<core:FragmentDefinition height="100%"
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m">
+    <Dialog title="안내사항" showHeader="true" contentWidth="30rem" contentHeight="20rem">
+        <MessagePage showHeader="false" text="접근 권한이 없습니다." description="담당자에게 문의해주세요." icon="sap-icon://message-warning">
+            <buttons>
+                <Button text="페이지 새로고침" type="Emphasized" icon="sap-icon://refresh" press="onPressRefresh"/>
+            </buttons>
+        </MessagePage>
+    </Dialog>
+</core:FragmentDefinition>
+
+

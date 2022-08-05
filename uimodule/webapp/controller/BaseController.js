@@ -77,7 +77,46 @@ sap.ui.define(
 
 			loadFragment: async function (param) {
 				console.log("loadFragment");
-				if (param === "Upload") {
+				if (param === "NoLoginInfoPage") {
+					if (!this._oNoLoginInfoPage) {
+						Fragment.load({
+							name: "com.hdi.myProfile.view.fragment.NoLoginInfo",
+							controller: this,
+						}).then(
+							function (oPage) {
+								this._oNoLoginInfoPage = oPage;
+								this.getView().addDependent(this._oNoLoginInfoPage);
+								this._oNoLoginInfoPage.open();
+							}.bind(this)
+						);
+					}
+				} else if (param === "RestrictUserPage") {
+					if (!this._oRestrictUserPage) {
+						Fragment.load({
+							name: "com.hdi.myProfile.view.fragment.RestrictUser",
+							controller: this,
+						}).then(
+							function (oPage) {
+								this._oRestrictUserPage = oPage;
+								this.getView().addDependent(this._oRestrictUserPage);
+								this._oRestrictUserPage.open();
+							}.bind(this)
+						);
+					}
+				} else if (param === "AuthCheckPage") {
+					if (!this._oAuthCheckPage) {
+						Fragment.load({
+							name: "com.hdi.myProfile.view.fragment.AuthCheck",
+							controller: this,
+						}).then(
+							function (oPage) {
+								this._oAuthCheckPage = oPage;
+								this.getView().addDependent(this._oAuthCheckPage);
+								this._oAuthCheckPage.open();
+							}.bind(this)
+						);
+					}
+				} else if (param === "Upload") {
 					console.log(this._oUploadPage);
 					if (!this._oUploadPage) {
 						Fragment.load({
@@ -114,6 +153,10 @@ sap.ui.define(
 				if (oEvent.getSource().getId() === "UploadCloseBtn") {
 					this._oUploadPage.close();
 				}
+			},
+
+			onPressRefresh: function () {
+				window.location.reload();
 			},
 
 			connect: function (sMethod, sUrl, oParam, async = true) {

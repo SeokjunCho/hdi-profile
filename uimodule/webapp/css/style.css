@@ -64,6 +64,21 @@
   border-radius: 0rem !important;
 }
 
+.sapMMessagePageInner {
+  box-sizing: border-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 1rem;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow-y: unset;
+  height: 19rem;
+}
+
+
 .stars {
   width: 1px;
   height: 1px;
