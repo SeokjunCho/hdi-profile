@@ -1,12 +1,12 @@
 <core:FragmentDefinition height="100%"
   xmlns:core="sap.ui.core"
   xmlns:f="sap.f"
-  xmlns="sap.m">
-  <Dialog title="안내사항" showHeader="true" contentWidth="30rem" contentHeight= "25rem">
+  xmlns="sap.m">  <Dialog title="안내사항" showHeader="true" contentWidth="30rem" contentHeight= "25rem">
     <MessagePage enableFormattedText="true" showHeader="false" text="장시간 사용이 없어서 접속이 끊겼습니다." description="아래 페이지 새로고침 버튼을 클릭하여 다시 로그인 부탁드립니다. &lt;br&gt;(단, 로그인 시 VDI 환경에서의 접속은 불가합니다.)&lt;br&gt;" icon="sap-icon://message-warning">
       <buttons>
         <Button text="페이지 새로고침" type="Emphasized" icon="sap-icon://refresh" press="onPressRefresh"/>
       </buttons>
     </MessagePage>
   </Dialog>
+
 </core:FragmentDefinition>
