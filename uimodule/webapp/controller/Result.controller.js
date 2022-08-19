@@ -1,18 +1,10 @@
 // @ts-nocheck
 sap.ui.define(
-	[
-		"./BaseController",
-		"sap/ui/model/json/JSONModel",
-		"sap/m/MessageBox",
-		"sap/m/PDFViewer",
-		"sap/ui/model/Filter",
-		"sap/ui/model/FilterOperator",
-		"sap/ui/core/ws/WebSocket",
-	],
+	["./BaseController", "sap/ui/model/json/JSONModel", "sap/m/MessageBox", "sap/m/PDFViewer", "sap/ui/model/Filter", "sap/ui/model/FilterOperator"],
 	/**
 	 * @param {typeof sap.ui.core.mvc.Controller} Controller
 	 */
-	function (Controller, JSONModel, MessageBox, PDFViewer, Filter, FilterOperator, WebSocket) {
+	function (Controller, JSONModel, MessageBox, PDFViewer, Filter, FilterOperator) {
 		"use strict";
 
 		return Controller.extend("com.hdi.myProfile.controller.Result", {
@@ -35,24 +27,24 @@ sap.ui.define(
 				this.aUserIds = [];
 			},
 
-			onAfterRendering: async function() {
-
+			onAfterRendering: async function () {
 				await this.getOwnerComponent().getAuth();
 
 				if (!this.getOwnerComponent()._gIsNormalAccess) {
 					this.loadFragment("RestrictUserPage");
 				} else if (!this.getOwnerComponent()._gIsLoginInfo) {
 					this.loadFragment("NoLoginInfoPage");
-				} else { // Normal Case
+				} else {
+					// Normal Case
 					console.log("Normal Login Case ");
 					const oAuth = await this.connect("POST", "user/auth", {
-						userId : this.getOwnerComponent()._gUserId,
-						token : this.getOwnerComponent()._gToken
+						userId: this.getOwnerComponent()._gUserId,
+						token: this.getOwnerComponent()._gToken,
 					});
 					console.log("=== oAuth ===");
 					console.log(oAuth);
 
-					if(oAuth !== "AUTH_ACCESS") {
+					if (oAuth !== "AUTH_ACCESS") {
 						this.loadFragment("AuthCheckPage");
 					}
 				}
@@ -183,7 +175,7 @@ sap.ui.define(
 					orgeh: "", // 조직 이름
 					ename: "", // 직원 이름
 					status: aStatusMCBKeys,
-					lang: oComponent._gLang
+					lang: oComponent._gLang,
 				};
 
 				if (sCategorySelectedKey === "ename") {
@@ -198,7 +190,6 @@ sap.ui.define(
 					}
 				}
 
-
 				oParam = Object.assign({}, oParam, oAddParam);
 
 				console.log("user oParam : ");
@@ -208,7 +199,8 @@ sap.ui.define(
 				console.log("=== result === ");
 				console.log(aResult);
 
-				if(aResult === "AUTH_ERR") { // 권한이 없는 경우 빈 배열로 바인딩
+				if (aResult === "AUTH_ERR") {
+					// 권한이 없는 경우 빈 배열로 바인딩
 					aResult = [];
 				}
 
@@ -310,11 +302,6 @@ sap.ui.define(
 					aUser: aPersonId, // 배열 길이가 1이면 PDF 파일, 2이상이면 zip 파일 제공
 				};
 				try {
-					// 소켓 연결이 완료 될 때 까지 대기, 연결 실패 시 catch로 넘어감
-					if(oComponent._bIsDev) {
-						await this.connectWebSocket();
-					}
-					
 					const oFile = await this.connect("POST", "profile", oParam);
 
 					let a = document.createElement("a");
@@ -374,61 +361,6 @@ sap.ui.define(
 				} else {
 					oBinding.filter(null);
 				}
-			},
-
-			connectWebSocket: function () {
-				return new Promise((resolve, reject) => {
-					const oComponent = this.getOwnerComponent();
-
-					let sWsUrl = "";
-					if (oComponent._bIsDev) {
-						sWsUrl = "ws://localhost:8080";
-					} else {
-						/* wss:// 방식도 고려할것 */
-						sWsUrl = "ws://hdi-profile-back.cfapps.ap12.hana.ondemand.com:8080";
-					}
-
-					console.log(sWsUrl);
-
-					this.connection = new WebSocket(sWsUrl); // 서버와 연결
-
-					console.log(this.connection);
-					console.log("ws id : ");
-					console.log(oComponent._gUserId);
-
-					this.connection.attachOpen (() => {
-						console.log("Open Connection");
-						this.connection.send(JSON.stringify({ type: "new", userId: oComponent._gUserId }));
-						resolve(true);
-					});
-					
-					this.connection.attachMessage ((oEvent) => {
-						const oMessage = JSON.parse(oEvent.getParameter("data"));
-						console.log(oMessage);
-						// isComplete 메세지를 받았을 경우 소켓 종료
-						if (oMessage.isComplete) {
-							this.disconnectWebSocket();
-						}
-					});
-					
-					this.connection.attachClose ((oEvent) => {
-						if (oEvent.wasClean) {
-							console.log(`[close] 커넥션이 정상적으로 종료되었습니다(code=${oEvent.code} reason=${oEvent.reason})`);
-						} else {
-							console.log("Close Connection");
-						}
-					});
-					
-					this.connection.attachError ((error) => {
-						console.log(`[error] `);
-						console.log(error);
-						reject("Socker Error");
-					});
-				});
-			},
-
-			disconnectWebSocket: function () {
-				this.connection.close();
 			},
 		});
 	}
