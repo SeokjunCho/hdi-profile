@@ -1,1 +1,16 @@
-node_modules
+node_modules/
+.idea/
+.mta/
+*.mtar
+dist/
+package-lock.json
+mta_archives/
+deployer/resources/
+Makefile*
+mta-*
+approuter/*/webapp/
+
+# auto generated wildcard
+uimodule/.env
+
+uimodule/webapp/env.json
