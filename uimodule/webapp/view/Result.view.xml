@@ -39,20 +39,33 @@
                                         </VBox>
                                         <HBox width="1rem" />
                                         <VBox>
-                                            <Text text="검색방법" class="subTextTitle" />
+                                            <Text text="{i18n>searchBy}" class="subTextTitle" />
                                             <Select id="categorySelect" width="12rem" change="onChangeCategory">
                                                 <items>
-                                                    <core:ListItem key="ename" text="성명으로 검색" />
-                                                    <core:ListItem key="userId" text="사번으로 검색" />
-                                                    <core:ListItem key="orgeh" text="조직명으로 검색" />
-                                                    <core:ListItem key="userIds" text="사번으로 대량 검색" />
+                                                    <core:ListItem key="ename" text="{i18n>searchBy.name}" />
+                                                    <core:ListItem key="userId" text="{i18n>searchBy.userId}" />
+                                                    <core:ListItem key="orgeh" text="{i18n>searchBy.department}" />
+                                                    <core:ListItem key="userIds" text="{i18n>searchBy.userIds}" />
                                                 </items>
                                             </Select>
                                         </VBox>
                                         <HBox width="1rem" />
                                         <VBox id="searchVBox">
                                             <Text text="{i18n>searchWord}" class="subTextTitle" />
-                                            <SearchField id="querySF" search="onSearch" width="20rem" placeholder="입력 예시) 김 현대 (성명), 현대 (이름)" />
+                                            <SearchField
+												id="nameSearchField"
+												visible="true"
+												search="onSearch"
+												width="23rem"
+												placeholder="{i18n>searchWord.namePlaceholder}"
+											/>
+                                            <SearchField
+												id="basicSearchField"
+												visible="false"
+												search="onSearch"
+												width="23rem"
+												placeholder="{i18n>searchWord.placeholder}"
+											/>
                                         </VBox>
                                         <VBox id="uploadVBox" visible="false">
                                             <Text text="{i18n>upload}" class="subTextTitle" />

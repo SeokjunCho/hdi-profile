@@ -1,8 +1,12 @@
-<mvc:View controllerName="com.hdi.myProfile.controller.AppMain" displayBlock="true"
-    xmlns="sap.m"
-    xmlns:core="sap.ui.core"
-    xmlns:mvc="sap.ui.core.mvc"
-    xmlns:tnt="sap.tnt" height="100%">
+<mvc:View
+	controllerName="com.hdi.myProfile.controller.AppMain"
+	displayBlock="true"
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:tnt="sap.tnt"
+	height="100%"
+>
     <App id="idAppControl">
         <tnt:ToolPage id="toolPage">
             <tnt:header>
@@ -16,10 +20,9 @@
                     <Text text="{i18n>title}" wrapping="false" />
                     <ToolbarSpacer />
 
-                    <Button id="changeLangBtn" icon="sap-icon://world" type="Default" text="한국어(KO)" press="onChangeLang"/>
+                    <Button id="changeLangBtn" icon="sap-icon://world" type="Default" text="한국어(KO)" press="onChangeLang" />
 
                     <Button id="themeBtn" icon="sap-icon://lightbulb" text="{i18n>lightMode}" type="Default" press="onChangeThemeMode" />
-                    <Button id="manualDownBtn" icon="sap-icon://download-from-cloud" text="{i18n>downloadManual}" type="Default" press="onPressCommonManualDownload" />
                 </tnt:ToolHeader>
             </tnt:header>
             <!--

@@ -52,6 +52,7 @@ sap.ui.define(
 				const oTitle = oItem.getTitle();
 				const oDesc = oItem.getDescription();
 
+				const oThemeBtn = this.byId("themeBtn");
 				const oBtn = this.byId("changeLangBtn");
 				oBtn.setText(`${oTitle}(${oDesc})`);
 
@@ -68,6 +69,12 @@ sap.ui.define(
 					console.log("ZH Changed!");
 					sap.ui.getCore().getConfiguration().setLanguage("zh");
 					oComponent._gLang = "zh_CN";
+				}
+				// 테마 변경 버튼 번역
+				if (oThemeBtn.getIcon() === "sap-icon://lightbulb") {
+					oThemeBtn.setText(this.getView().getModel("i18n").getResourceBundle().getText("lightMode"));
+				} else {
+					oThemeBtn.setText(this.getView().getModel("i18n").getResourceBundle().getText("darkMode"));
 				}
 				this.onPressLangClose();
 			},
