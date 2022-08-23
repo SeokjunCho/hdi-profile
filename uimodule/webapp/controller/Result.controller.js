@@ -52,8 +52,10 @@ sap.ui.define(
 
 			onChangeCategory: function (oEvent) {
 				const sKey = oEvent.getParameters().selectedItem.getKey();
-				const sQuery = this.byId("querySF");
-				sQuery.setValue("");
+				const oNameSearchField = this.byId("nameSearchField");
+				const oBasicSearchField = this.byId("basicSearchField");
+				oNameSearchField.setValue("");
+				oBasicSearchField.setValue("");
 
 				if (sKey === "userIds") {
 					this.byId("searchVBox").setVisible(false);
@@ -64,9 +66,11 @@ sap.ui.define(
 				}
 
 				if (sKey === "ename") {
-					sQuery.setPlaceholder("예시) 김 현대 (성명), 현대 (이름)");
+					oNameSearchField.setVisible(true);
+					oBasicSearchField.setVisible(false);
 				} else {
-					sQuery.setPlaceholder("두 글자 이상 입력하세요.");
+					oNameSearchField.setVisible(false);
+					oBasicSearchField.setVisible(true);
 				}
 			},
 
