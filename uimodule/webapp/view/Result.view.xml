@@ -31,7 +31,7 @@
                                             <Text text="{i18n>employmentStatus}" class="subTextTitle" />
                                             <MultiComboBox id="statusMCB" width="12rem" selectedKeys="3">
                                                 <items>
-                                                    <core:ListItem key="3" text="{i18n>active}" /><!-- 재직 -->
+                                                    <core:ListItem key="3" text="{i18n>active}" /> <!-- 재직 -->
                                                     <core:ListItem key="1" text="{i18n>inactive}" /> <!-- 휴직 -->
                                                     <core:ListItem key="0" text="{i18n>withdrawn}" /> <!-- 퇴직 -->
                                                 </items>
@@ -42,34 +42,34 @@
                                             <Text text="{i18n>searchBy}" class="subTextTitle" />
                                             <Select id="categorySelect" width="12rem" change="onChangeCategory">
                                                 <items>
-                                                    <core:ListItem key="ename" text="{i18n>searchBy.name}" />
-                                                    <core:ListItem key="userId" text="{i18n>searchBy.userId}" />
-                                                    <core:ListItem key="orgeh" text="{i18n>searchBy.department}" />
-                                                    <core:ListItem key="userIds" text="{i18n>searchBy.userIds}" />
+                                                    <core:ListItem key="ename" text="{i18n>searchBy.name}" /> <!-- 성명으로 검색 -->
+                                                    <core:ListItem key="userId" text="{i18n>searchBy.userId}" /> <!-- 사번으로 검색 -->
+                                                    <core:ListItem key="orgeh" text="{i18n>searchBy.department}" /> <!-- 조직명으로 검색 -->
+                                                    <core:ListItem key="userIds" text="{i18n>searchBy.userIds}" /> <!-- 사번으로 대량 검색 -->
                                                 </items>
                                             </Select>
                                         </VBox>
                                         <HBox width="1rem" />
                                         <VBox id="searchVBox">
-                                            <Text text="{i18n>searchWord}" class="subTextTitle" />
+                                            <Text text="{i18n>searchWord}" class="subTextTitle" /> <!-- 검색어 -->
                                             <SearchField
 												id="nameSearchField"
 												visible="true"
 												search="onSearch"
 												width="23rem"
 												placeholder="{i18n>searchWord.namePlaceholder}"
-											/>
+											/>  <!-- 입력 예시) 김 현대 (성명), 현대 (이름) -->
                                             <SearchField
 												id="basicSearchField"
 												visible="false"
 												search="onSearch"
 												width="23rem"
 												placeholder="{i18n>searchWord.placeholder}"
-											/>
+											/><!-- 두 글자 이상 입력하세요. -->
                                         </VBox>
                                         <VBox id="uploadVBox" visible="false">
-                                            <Text text="{i18n>upload}" class="subTextTitle" />
-                                            <Button type="Emphasized" text="사번 Upload" press="onPressUpload" />
+                                            <Text text="{i18n>upload}" class="subTextTitle" /> <!-- 업로드 -->
+                                            <Button type="Emphasized" text="{i18n>uploadButton}" press="onPressUpload" /> <!-- 사번 Upload -->
                                         </VBox>
                                     </HBox>
                                 </VBox>
@@ -98,14 +98,19 @@
 					sticky="HeaderToolbar,InfoToolbar,ColumnHeaders"
 					mode="MultiSelect"
 					includeItemInSelection="true"
-				>
+				> <!-- 검색 결과가 없습니다. -->
                     <headerToolbar>
                         <Toolbar>
-                            <Title id="resultTableTitle" text="{i18n>searchResult} (0)" level="H2" />
+                            <Title id="resultTableTitle" text="{i18n>searchResult} (0)" level="H2" /> <!-- 조회결과 -->
                             <ToolbarSpacer />
-                            <Button type="Ghost" icon="sap-icon://pdf-attachment" text="프로필 다운로드" press="onPressReportDownload" />
+                            <Button
+								type="Ghost"
+								icon="sap-icon://pdf-attachment"
+								text="{i18n>profileDownloadBtn}"
+								press="onPressReportDownload"
+							/> <!-- 업로드 -->
                             <ToolbarSeparator />
-                            <SearchField placeholder="Filter(내용검색)" search="filterGlobally" width="15rem" />
+                            <SearchField placeholder="{i18n>tableFilter}" search="filterGlobally" width="15rem" /> <!-- Filter (내용 검색) -->
                         </Toolbar>
                     </headerToolbar>
                     <columns>
@@ -116,52 +121,52 @@
                         </Column>
                         <Column width="10%" hAlign="Center">
                             <header>
-                                <Label text="{i18n>resultTable.employeeNo}" />
+                                <Label text="{i18n>resultTable.employeeNo}" wrapping="true" /> <!-- 사번 -->
                             </header>
                         </Column>
                         <Column width="20%" hAlign="Center" minScreenWidth="Desktop" demandPopin="true">
                             <header>
-                                <Label text="{i18n>resultTable.company}" />
+                                <Label text="{i18n>resultTable.company}" /> <!-- 회사 -->
                             </header>
                         </Column>
                         <Column width="15%" hAlign="Center">
                             <header>
-                                <Text text="{i18n>resultTable.department}" />
+                                <Text text="{i18n>resultTable.department}" /> <!-- 소속 -->
                             </header>
                         </Column>
                         <Column width="15%" hAlign="Center">
                             <header>
-                                <Label text="{i18n>resultTable.name}" />
+                                <Label text="{i18n>resultTable.name}" /> <!-- 성명 -->
                             </header>
                         </Column>
                         <Column width="15%" hAlign="Center">
                             <header>
-                                <Text text="{i18n>resultTable.title}" />
+                                <Text text="{i18n>resultTable.title}" /> <!-- 직위 -->
                             </header>
                         </Column>
                         <Column width="15%" hAlign="Center">
                             <header>
-                                <Text text="{i18n>resultTable.role}" />
+                                <Text text="{i18n>resultTable.role}" /> <!-- 직책 -->
                             </header>
                         </Column>
                         <Column width="15%" hAlign="Center">
                             <header>
-                                <Text text="{i18n>resultTable.employeeGroup}" />
+                                <Text text="{i18n>resultTable.employeeGroup}" /> <!-- 직군 -->
                             </header>
                         </Column>
                         <Column width="15%" hAlign="Center">
                             <header>
-                                <Text text="{i18n>resultTable.employmentType}" />
+                                <Text text="{i18n>resultTable.employmentType}" /> <!-- 사원유형 -->
                             </header>
                         </Column>
                         <Column width="15%" hAlign="Center">
                             <header>
-                                <Text text="{i18n>resultTable.employeeStatus}" />
+                                <Text text="{i18n>resultTable.employeeStatus}" /> <!-- 재직구분 -->
                             </header>
                         </Column>
                         <Column width="15%" hAlign="Center">
                             <header>
-                                <Text text="추가기능" />
+                                <Text text="{i18n>resultTable.additionalFeatures}" /> <!-- 추가기능 -->
                             </header>
                         </Column>
                     </columns>
@@ -178,7 +183,12 @@
                                 <Label text="{jobGroup}" />
                                 <Label text="{empType}" />
                                 <Label text="{path:'status', formatter:'.statusFormatter'}" />
-                                <Button icon="sap-icon://pdf-reader" type="Accept" text="프로필 보기" press="onPressProfileOpen" />
+                                <Button
+									icon="sap-icon://pdf-reader"
+									type="Accept"
+									text="{i18n>resultTable.showProfile}"
+									press="onPressProfileOpen"
+								/> <!-- 프로필 보기 -->
                             </cells>
                         </ColumnListItem>
                     </items>
