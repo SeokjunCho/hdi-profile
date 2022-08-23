@@ -37,11 +37,10 @@ sap.ui.define(
 				} else {
 					// Normal Case
 					console.log("Normal Login Case ");
-					const oParam = {
+					const oAuth = await this.connect("POST", "user/auth", {
 						userId: this.getOwnerComponent()._gUserId,
 						token: this.getOwnerComponent()._gToken,
-					};
-					const oAuth = await this.connect("POST", "user/auth", oParam);
+					});
 					console.log("=== oAuth ===");
 					console.log(oAuth);
 
