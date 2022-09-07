@@ -11,6 +11,6 @@ mta-*
 approuter/*/webapp/
 
 # auto generated wildcard
+approuter/.env
 uimodule/.env
-
 uimodule/webapp/env.json

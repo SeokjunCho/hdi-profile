@@ -6,8 +6,9 @@
   },
   "dependencies": {
     "@sap/approuter": "^9.0.0",
-    "jwt-decode": "^3.1.2",
-    "crypto": "^1.0.1"
+    "crypto": "^1.0.1",
+    "dotenv": "^16.0.2",
+    "jwt-decode": "^3.1.2"
   },
   "devDependencies": {
     "@sap/html5-repo-mock": "^1.6.0"

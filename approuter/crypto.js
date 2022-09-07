@@ -4,10 +4,11 @@
 /* eslint-disable no-console */
 
 const approuter = require("@sap/approuter");
-
 const jwtDecode = require("jwt-decode");
 const crypto = require("crypto");
+const dotenv = require("dotenv");
 
+dotenv.config();
 let ar = approuter();
 
 ar.beforeRequestHandler.use((req, res, next) => {
@@ -58,8 +59,10 @@ function encryptText(personId) {
 
 	const dateString = `${year}${month}${day}`;
 
-  const key = `s+7Yc+RyD1CghFEDhcYhYQ==${dateString}`; //hdiprofile_20220804
-	const cryptoKey = crypto.scryptSync(key, "salt", 24);
+  //const key = `s+7Yc+RyD1CghFEDhcYhYQ==${dateString}`; //hdiprofile_20220804
+	const privateKey = process.env.PRIVATE_KEY;
+	const finalKey = `${privateKey}${dateString}`;
+	const cryptoKey = crypto.scryptSync(finalKey, "salt", 24);
 	const iv = Buffer.alloc(16, 0);
 	const cipher = crypto.createCipheriv("aes-192-cbc", cryptoKey, iv);
 
