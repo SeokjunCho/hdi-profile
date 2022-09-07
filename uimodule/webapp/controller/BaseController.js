@@ -159,7 +159,7 @@ sap.ui.define(
 				window.location.reload();
 			},
 
-			connect: function (sMethod, sUrl, oParam, async = true) {
+			connect: function (sMethod, sUrl, oParam, async = false) {
 				const oComponent = this.getOwnerComponent();
 				const _gBusyDialog = oComponent._gBusyDialog;
 				let oXhrFields = {};
@@ -198,8 +198,8 @@ sap.ui.define(
 							}
 						},
 						error: function (err) {
-							if (oComponent._bIsDev) {
-								MessageBox.error("err message : " + err.statusText);
+							if (err.statusText.indexOf("localhost") !== -1) {
+								MessageBox.error("localhost환경입니다. Node Express Back-end서버를 실행시켜주세요.");
 							}
 							reject(err);
 							_gBusyDialog.close();
