@@ -37,10 +37,11 @@ sap.ui.define(
 				} else {
 					// Normal Case
 					console.log("Normal Login Case ");
-					const oAuth = await this.connect("POST", "user/auth", {
+					const oParam = {
 						userId: this.getOwnerComponent()._gUserId,
 						token: this.getOwnerComponent()._gToken,
-					});
+					};
+					const oAuth = await this.connect("POST", "user/auth", oParam);
 					console.log("=== oAuth ===");
 					console.log(oAuth);
 
@@ -253,7 +254,7 @@ sap.ui.define(
 							},
 							aUser: [oUserParam], // 배열 길이가 1이면 PDF 파일, 2이상이면 zip 파일 제공
 						};
-						const oFile = await this.connect("POST", "profile", oParam);
+						const oFile = await this.connect("POST", "profile", oParam, true);
 
 						pdfUrl = URL.createObjectURL(oFile);
 						this._pdfUrlMap.set(key, pdfUrl);
