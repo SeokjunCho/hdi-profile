@@ -58,9 +58,7 @@ function encryptText(personId) {
 	const day = ("0" + kr_curr.getDate()).slice(-2);
 
 	const dateString = `${year}${month}${day}`;
-
-  //const key = `s+7Yc+RyD1CghFEDhcYhYQ==${dateString}`; //hdiprofile_20220804
-	const privateKey = process.env.PRIVATE_KEY;
+	const privateKey = process.env.PRIVATE_KEY; // hdiprofile_${dateString}
 	const finalKey = `${privateKey}${dateString}`;
 	const cryptoKey = crypto.scryptSync(finalKey, "salt", 24);
 	const iv = Buffer.alloc(16, 0);
