@@ -58,7 +58,7 @@
 												search="onSearch"
 												width="23rem"
 												placeholder="{i18n>searchWord.namePlaceholder}"
-											/>  <!-- 입력 예시) 김 현대 (성명), 현대 (이름) -->
+											/><!-- 입력 예시) 김 현대 (성명), 현대 (이름) -->
                                             <SearchField
 												id="basicSearchField"
 												visible="false"
@@ -103,14 +103,11 @@
                         <Toolbar>
                             <Title id="resultTableTitle" text="{i18n>searchResult} (0)" level="H2" /> <!-- 조회결과 -->
                             <ToolbarSpacer />
-                            <Button
-								type="Ghost"
-								icon="sap-icon://pdf-attachment"
-								text="{i18n>profileDownloadBtn}"
-								press="onPressReportDownload"
-							/> <!-- 업로드 -->
+                            <!-- 업로드 -->
+                            <Button type="Ghost" icon="sap-icon://pdf-attachment" text="{i18n>profileDownloadBtn}" press="onPressReportDownload" />
                             <ToolbarSeparator />
                             <SearchField placeholder="{i18n>tableFilter}" search="filterGlobally" width="15rem" /> <!-- Filter (내용 검색) -->
+                            
                         </Toolbar>
                     </headerToolbar>
                     <columns>
@@ -183,12 +180,8 @@
                                 <Label text="{jobGroup}" />
                                 <Label text="{empType}" />
                                 <Label text="{path:'status', formatter:'.statusFormatter'}" />
-                                <Button
-									icon="sap-icon://pdf-reader"
-									type="Accept"
-									text="{i18n>resultTable.showProfile}"
-									press="onPressProfileOpen"
-								/> <!-- 프로필 보기 -->
+                                <!-- 프로필 보기 -->
+                                <Button icon="sap-icon://pdf-reader" type="Accept" text="{i18n>resultTable.showProfile}" press="onPressProfileOpen" />
                             </cells>
                         </ColumnListItem>
                     </items>

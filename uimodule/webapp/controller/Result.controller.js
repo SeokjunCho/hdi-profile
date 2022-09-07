@@ -138,8 +138,12 @@ sap.ui.define(
 
 			onSearch: async function (oEvent) {
 				console.log("onSearch!");
+				const oParameter = oEvent.getParameters();
+				// Clear 버튼 클릭 시, Search 로직 타지 않음
+				if (oParameter.clearButtonPressed) return;
+
 				const oComponent = this.getOwnerComponent();
-				console.log(oComponent);
+
 				const oCategorySelect = this.byId("categorySelect");
 				const sCategorySelectedKey = oCategorySelect.getSelectedKey();
 
@@ -156,7 +160,7 @@ sap.ui.define(
 						this._oUploadPage.close();
 					}
 				} else {
-					sQuery = oEvent.getParameters().query;
+					sQuery = oParameter.query;
 
 					if (sQuery.length < 2) {
 						MessageBox.information("검색어를 2글자 이상 입력해주세요.");
@@ -200,7 +204,7 @@ sap.ui.define(
 				console.log("user oParam : ");
 				console.log(oParam);
 
-				let aResult = await this.connect("POST", "user/search", oParam);
+				let aResult = await this.connect("POST", "user/search", oParam, true);
 				console.log("=== result === ");
 				console.log(aResult);
 
@@ -307,7 +311,7 @@ sap.ui.define(
 					aUser: aPersonId, // 배열 길이가 1이면 PDF 파일, 2이상이면 zip 파일 제공
 				};
 				try {
-					const oFile = await this.connect("POST", "profile", oParam);
+					const oFile = await this.connect("POST", "profile", oParam, true);
 
 					let a = document.createElement("a");
 					let url = window.URL.createObjectURL(oFile);
