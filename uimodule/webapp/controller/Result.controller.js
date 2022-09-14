@@ -199,16 +199,16 @@ sap.ui.define(
 
 				oParam = Object.assign({}, oParam, oAddParam);
 
-				console.log("user oParam : ");
-				console.log(oParam);
-
 				let aResult = await this.connect("POST", "user/search", oParam, true);
-				//console.log("=== result === ");
-				//console.log(aResult);
 
+				// 권한이 없는 경우 빈 배열로 바인딩
 				if (aResult === "AUTH_ERR") {
-					// 권한이 없는 경우 빈 배열로 바인딩
 					aResult = [];
+				}
+
+				for (const item of aResult) {
+					item.fullName = item.lastName + item.firstName;
+					item.fullName2 = item.lastName + " " + item.firstName;
 				}
 
 				const oTable = this.byId("resultTable");
@@ -223,14 +223,11 @@ sap.ui.define(
 			},
 
 			onPressProfileOpen: async function (oEvent) {
-				//console.log("Profile Open (Fragment)");
 				const oComponent = this.getOwnerComponent();
 				//Circle 보고서 조회 부분 참고
 				const oButton = oEvent.getSource();
 				const oBindingContext = oButton.getBindingContext();
 				const oTargetObject = oBindingContext.getObject();
-
-				//console.log(oTargetObject);
 
 				try {
 					const oUserParam = {
@@ -356,9 +353,12 @@ sap.ui.define(
 							new Filter("userId", FilterOperator.Contains, sQuery),
 							new Filter("company", FilterOperator.Contains, sQuery),
 							new Filter("department", FilterOperator.Contains, sQuery),
+							new Filter("fullName", FilterOperator.Contains, sQuery),
+							new Filter("fullName2", FilterOperator.Contains, sQuery),
 							new Filter("title", FilterOperator.Contains, sQuery),
 							new Filter("position", FilterOperator.Contains, sQuery),
-							new Filter("employeeType", FilterOperator.Contains, sQuery),
+							new Filter("jobGroup", FilterOperator.Contains, sQuery),
+							new Filter("empType", FilterOperator.Contains, sQuery),
 						],
 						false
 					);
