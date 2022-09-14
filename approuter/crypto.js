@@ -7,7 +7,6 @@ const approuter = require("@sap/approuter");
 const jwtDecode = require("jwt-decode");
 const crypto = require("crypto");
 const dotenv = require("dotenv");
-const { default: ComponentSupport } = require("sap/ui/core/ComponentSupport");
 
 dotenv.config();
 let ar = approuter();
