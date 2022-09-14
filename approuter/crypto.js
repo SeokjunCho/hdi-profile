@@ -12,32 +12,31 @@ dotenv.config();
 let ar = approuter();
 
 ar.beforeRequestHandler.use((req, res, next) => {
-	console.log("the follow request made...");
-	console.log("Method: " + req.method);
-	console.log("URL : " + req.url);
+	// console.log("the follow request made...");
+	// console.log("Method: " + req.method);
+	// console.log("URL : " + req.url);
 	next();
 });
 
 ar.beforeRequestHandler.use("/getToken", (req, res) => {
-  try {
-    console.log("*** getToken ***");
-    //console.log(req);
-    res.statusCode = 200;
-    const decodedJWTToken = jwtDecode(req.user.token.accessToken);
-  
-    const vData = {
-      userId: decodedJWTToken.user_name,
-      token: encryptText(decodedJWTToken.user_name),
-    };
-  
-    console.log(vData);
-  
-    res.end(JSON.stringify(vData));
-  } catch (err) {
-    console.log("Err");
-    console.log(err);
-  }
+	try {
+		// console.log("*** getToken ***");
+		//console.log(req);
+		res.statusCode = 200;
+		const decodedJWTToken = jwtDecode(req.user.token.accessToken);
 
+		const vData = {
+			userId: decodedJWTToken.user_name,
+			token: encryptText(decodedJWTToken.user_name),
+		};
+
+		// console.log(vData);
+
+		res.end(JSON.stringify(vData));
+	} catch (err) {
+		console.log("Err");
+		console.log(err);
+	}
 });
 
 ar.start();

@@ -24,8 +24,6 @@ sap.ui.define(
 			},
 
 			onChangeLang: function (oEvent) {
-				console.log("onChangeLang : ");
-
 				var oButton = oEvent.getSource(),
 					oView = this.getView();
 
@@ -57,16 +55,13 @@ sap.ui.define(
 				oBtn.setText(`${oTitle}(${oDesc})`);
 
 				if (oDesc === "KO") {
-					console.log("KO Changed!");
 					sap.ui.getCore().getConfiguration().setLanguage("ko");
 					oComponent._gLang = "ko_KR";
 				} else if (oDesc === "EN") {
-					console.log("EN Changed!");
 					sap.ui.getCore().getConfiguration().setLanguage("en");
 					oComponent._gLang = "en_US";
 				} else {
 					// ZH
-					console.log("ZH Changed!");
 					sap.ui.getCore().getConfiguration().setLanguage("zh");
 					oComponent._gLang = "zh_CN";
 				}
