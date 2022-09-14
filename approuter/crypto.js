@@ -20,13 +20,13 @@ ar.beforeRequestHandler.use((req, res, next) => {
 
 ar.beforeRequestHandler.use("/getToken", (req, res) => {
   try {
-    console.log("*** getToken ***");
+    //console.log("*** getToken ***");
     //console.log(req);
     res.statusCode = 200;
     const decodedJWTToken = jwtDecode(req.user.token.accessToken);
   
-		console.log("=== decode token ===");
-		console.log(decodedJWTToken);
+		//console.log("=== decode token ===");
+		//console.log(decodedJWTToken);
 
     const vData = {
       userId: decodedJWTToken.user_name,

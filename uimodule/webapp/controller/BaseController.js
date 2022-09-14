@@ -76,7 +76,7 @@ sap.ui.define(
 			},
 
 			loadFragment: async function (param) {
-				console.log("loadFragment");
+				//console.log("loadFragment");
 				if (param === "NoLoginInfoPage") {
 					if (!this._oNoLoginInfoPage) {
 						Fragment.load({
@@ -117,7 +117,7 @@ sap.ui.define(
 						);
 					}
 				} else if (param === "Upload") {
-					console.log(this._oUploadPage);
+					//console.log(this._oUploadPage);
 					if (!this._oUploadPage) {
 						Fragment.load({
 							name: "com.hdi.myProfile.view.fragment.Upload",
@@ -139,7 +139,7 @@ sap.ui.define(
 					} else {
 						const oTable = sap.ui.getCore().byId("uploadTable");
 						const oTitle = sap.ui.getCore().byId("resultTitle");
-						console.log(oTitle);
+						//console.log(oTitle);
 						let oModel = new JSONModel();
 						oModel.setProperty("/pasteData", []);
 						oTable.setModel(oModel);
@@ -178,9 +178,9 @@ sap.ui.define(
 						URL = "http://localhost:8080/" + sUrl;
 					}
 
-					console.log("Call from BaseController.js");
-					console.log(`URL : ${URL}`);
-					console.log(`METHOD : ${sMethod}`);
+					//console.log("Call from BaseController.js");
+					//console.log(`URL : ${URL}`);
+					//console.log(`METHOD : ${sMethod}`);
 
 					jQuery.ajax({
 						url: URL,

@@ -36,14 +36,14 @@ sap.ui.define(
 					this.loadFragment("NoLoginInfoPage");
 				} else {
 					// Normal Case
-					console.log("Normal Login Case ");
+					//console.log("Normal Login Case ");
 					const oParam = {
 						userId: this.getOwnerComponent()._gUserId,
 						token: this.getOwnerComponent()._gToken,
 					};
 					const oAuth = await this.connect("POST", "user/auth", oParam);
-					console.log("=== oAuth ===");
-					console.log(oAuth);
+					//console.log("=== oAuth ===");
+					//console.log(oAuth);
 
 					if (oAuth !== "AUTH_ACCESS") {
 						this.loadFragment("AuthCheckPage");
@@ -76,17 +76,17 @@ sap.ui.define(
 			},
 
 			onPressUpload: async function (oEvent) {
-				console.log("onPressUpload");
+				//console.log("onPressUpload");
 				// 전역 배열 초기화
 				this.aUserIds = [];
 
 				//Open Fragment
 				await this.loadFragment("Upload");
-				console.log("onPressUpload Finish");
+				//console.log("onPressUpload Finish");
 			},
 
 			onPasteData: function (oEvent) {
-				console.log("onPasteData!!");
+				//console.log("onPasteData!!");
 				//console.log(oEvent.getParameters());
 
 				const aPaste = oEvent.getParameters().data;
@@ -96,8 +96,8 @@ sap.ui.define(
 				let aPasteData = [];
 
 				aPaste.forEach((aData, idx) => {
-					console.log(idx);
-					console.log(aData);
+					//console.log(idx);
+					//console.log(aData);
 
 					for (let userId of aData) {
 						//if (!isNaN(userId) && userId !== "") {
@@ -107,14 +107,12 @@ sap.ui.define(
 					}
 				});
 
-				console.log("aUserId : ");
-				console.log(aUserId);
-
-				console.log("new arr");
+				//console.log("aUserId : ");
+				//console.log(aUserId);
 
 				const aSetUserId = [...new Set(aUserId.map(JSON.stringify))].map(JSON.parse);
 
-				console.log(aSetUserId);
+				//console.log(aSetUserId);
 				this.aUserIds = aSetUserId;
 
 				aSetUserId.forEach((obj, idx) => {
@@ -137,7 +135,7 @@ sap.ui.define(
 			},
 
 			onSearch: async function (oEvent) {
-				console.log("onSearch!");
+				//console.log("onSearch!");
 				const oParameter = oEvent.getParameters();
 				// Clear 버튼 클릭 시, Search 로직 타지 않음
 				if (oParameter.clearButtonPressed) return;
@@ -168,11 +166,11 @@ sap.ui.define(
 					}
 				}
 
-				console.log(sCategorySelectedKey);
-				console.log(sQuery);
+				//console.log(sCategorySelectedKey);
+				//console.log(sQuery);
 
-				console.log("gUserId from user search!");
-				console.log(oComponent._gUserId);
+				//console.log("gUserId from user search!");
+				//console.log(oComponent._gUserId);
 				let oParam = {
 					userId: oComponent._gUserId, // 로그인 사용자 Person ID
 					token: oComponent._gToken, // 로그인 사용자 토근
@@ -205,8 +203,8 @@ sap.ui.define(
 				console.log(oParam);
 
 				let aResult = await this.connect("POST", "user/search", oParam, true);
-				console.log("=== result === ");
-				console.log(aResult);
+				//console.log("=== result === ");
+				//console.log(aResult);
 
 				if (aResult === "AUTH_ERR") {
 					// 권한이 없는 경우 빈 배열로 바인딩
@@ -225,14 +223,14 @@ sap.ui.define(
 			},
 
 			onPressProfileOpen: async function (oEvent) {
-				console.log("Profile Open (Fragment)");
+				//console.log("Profile Open (Fragment)");
 				const oComponent = this.getOwnerComponent();
 				//Circle 보고서 조회 부분 참고
 				const oButton = oEvent.getSource();
 				const oBindingContext = oButton.getBindingContext();
 				const oTargetObject = oBindingContext.getObject();
 
-				console.log(oTargetObject);
+				//console.log(oTargetObject);
 
 				try {
 					const oUserParam = {

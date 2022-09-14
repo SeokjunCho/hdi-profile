@@ -50,7 +50,7 @@ sap.ui.define(["sap/ui/core/UIComponent", "sap/ui/Device", "com/hdi/myProfile/mo
 				customIconDensityAware: false,
 			});
 
-			console.log("HDI Component Start!");
+			//console.log("HDI Component Start!");
 		},
 
 		getAuth: async function () {
@@ -79,8 +79,8 @@ sap.ui.define(["sap/ui/core/UIComponent", "sap/ui/Device", "com/hdi/myProfile/mo
 				this._gToken = aLocal[0];
 				this._gUserId = aLocal[1];
 
-                console.log("localhost login info : ")
-                console.log(aLocal);
+				console.log("localhost login info : ")
+				console.log(aLocal);
 			}
 			this._gBusyDialog.close();
 		},
