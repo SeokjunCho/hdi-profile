@@ -7,6 +7,7 @@ const approuter = require("@sap/approuter");
 const jwtDecode = require("jwt-decode");
 const crypto = require("crypto");
 const dotenv = require("dotenv");
+const { default: ComponentSupport } = require("sap/ui/core/ComponentSupport");
 
 dotenv.config();
 let ar = approuter();
@@ -25,6 +26,9 @@ ar.beforeRequestHandler.use("/getToken", (req, res) => {
     res.statusCode = 200;
     const decodedJWTToken = jwtDecode(req.user.token.accessToken);
   
+		console.log("=== decode token ===");
+		console.log(decodedJWTToken);
+
     const vData = {
       userId: decodedJWTToken.user_name,
       token: encryptText(decodedJWTToken.user_name),

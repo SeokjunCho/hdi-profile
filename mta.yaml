@@ -8,8 +8,8 @@ modules:
     type: nodejs
     path: approuter
     parameters:
-      disk-quota: 512M
-      memory: 512M
+      disk-quota: 1024M
+      memory: 1024M
       buildpack: https://github.com/cloudfoundry/nodejs-buildpack/releases/download/v1.7.25/nodejs-buildpack-cflinuxfs3-v1.7.25.zip
     requires:
       - name: myProfile_destination
