@@ -174,7 +174,7 @@
                                 <Label text="{userId}" />
                                 <Label text="{company}" wrapping="true" />
                                 <Label text="{department}" wrapping="true" />
-                                <Label text="{lastName} {firstName}" />
+                                <Label text="{fullName}" />
                                 <Label text="{title}" />
                                 <Label text="{position}" />
                                 <Label text="{jobGroup}" />

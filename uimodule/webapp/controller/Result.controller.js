@@ -207,8 +207,15 @@ sap.ui.define(
 				}
 
 				for (const item of aResult) {
-					item.fullName = item.lastName + item.firstName;
-					item.fullName2 = item.lastName + " " + item.firstName;
+					// 한/중/일 은 이름을 Last + First
+					if (["KOR", "CHN", "JPN"].some((el) => el === item.nationality)) {
+						item.fullName = item.lastName + " " + item.firstName;
+						item.fullName2 = item.lastName + item.firstName;
+					} else {
+						// 그 외 국가는 First + Last
+						item.fullName = item.firstName + " " + item.lastName;
+						item.fullName2 = item.firstName + item.lastName;
+					}
 				}
 
 				const oTable = this.byId("resultTable");
