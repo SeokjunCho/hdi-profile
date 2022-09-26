@@ -12,4 +12,4 @@ approuter/*/webapp/
 # auto generated wildcard
 approuter/.env
 uimodule/.env
-uimodule/webapp/env.json
+uimodule/webapp/env.json.DS_Store
