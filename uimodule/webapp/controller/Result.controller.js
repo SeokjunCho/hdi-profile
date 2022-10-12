@@ -312,13 +312,20 @@ sap.ui.define(
 					},
 					aUser: aPersonId, // 배열 길이가 1이면 PDF 파일, 2이상이면 zip 파일 제공
 				};
+
 				try {
 					const oFile = await this.connect("POST", "profile", oParam, true);
 
 					let a = document.createElement("a");
 					let url = window.URL.createObjectURL(oFile);
 					a.href = url;
-					a.download = "profiles.zip";
+
+					if (aItems.length === 1) {
+						a.download = "profile.pdf";
+					} else {
+						a.download = "profiles.zip";
+					}
+					
 
 					document.body.append(a);
 					a.click();
