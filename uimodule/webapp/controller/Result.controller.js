@@ -147,7 +147,13 @@ sap.ui.define(
 
 				const oStatusMCB = this.byId("statusMCB");
 				const aStatusMCBKeys = oStatusMCB.getSelectedKeys();
+
 				let sQuery = "";
+
+				if (aStatusMCBKeys.length === 0) {
+					MessageBox.information("재직 구분을 선택하여 주세요.");
+					return;
+				}
 
 				if (sCategorySelectedKey === "userIds") {
 					if (!this.aUserIds.length) {
@@ -325,7 +331,6 @@ sap.ui.define(
 					} else {
 						a.download = "profiles.zip";
 					}
-					
 
 					document.body.append(a);
 					a.click();
@@ -338,16 +343,6 @@ sap.ui.define(
 			},
 
 			// 재직구분 formatter
-			statusFormatter: function (status) {
-				//this.getView().getModel("i18n").getResourceBundle().getText("words");
-				if (status === "T") {
-					return "퇴직";
-				} else if (status === "U" || status === "P") {
-					return "휴직";
-				} else {
-					return "재직";
-				}
-			},
 
 			// "대상자 검색" 팝업 - 검색 필터
 			filterGlobally: function (oEvent) {

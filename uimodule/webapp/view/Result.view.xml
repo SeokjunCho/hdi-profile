@@ -34,6 +34,7 @@
                                                     <core:ListItem key="3" text="{i18n>active}" /> <!-- 재직 -->
                                                     <core:ListItem key="1" text="{i18n>inactive}" /> <!-- 휴직 -->
                                                     <core:ListItem key="0" text="{i18n>withdrawn}" /> <!-- 퇴직 -->
+                                                    <core:ListItem key="2" text="{i18n>withdrawnInDoosan}" /> <!-- 퇴사(’21.08.19 이전) -->
                                                 </items>
                                             </MultiComboBox>
                                         </VBox>
@@ -179,7 +180,7 @@
                                 <Label text="{position}" />
                                 <Label text="{jobGroup}" />
                                 <Label text="{empType}" />
-                                <Label text="{path:'status', formatter:'.statusFormatter'}" />
+                                <Label text="{path:'status', formatter:'.formatter.statusFormatter'}" />
                                 <!-- 프로필 보기 -->
                                 <Button icon="sap-icon://pdf-reader" type="Accept" text="{i18n>resultTable.showProfile}" press="onPressProfileOpen" />
                             </cells>
