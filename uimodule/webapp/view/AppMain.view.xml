@@ -15,7 +15,7 @@
                     <Button id="menuToggleBtn" icon="sap-icon://menu2" type="Transparent" press="onMenuButtonPress" />
                     -->
                     <ToolbarSpacer width="1rem" />
-                    <Text text="HDI Employee Profile" wrapping="false" class="f18_title" />
+                    <Text text="HD Hyundai Infracore Employee Profile" wrapping="false" class="f18_title" />
                     <ToolbarSpacer width="0.3rem" />
                     <Text text="{i18n>title}" wrapping="false" />
                     <ToolbarSpacer />
