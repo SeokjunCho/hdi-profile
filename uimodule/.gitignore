@@ -1,16 +1,8 @@
 node_modules/
 dist/
 .scp/
-.env
 Makefile*.mta
 mta_archives/
 mta-*
 archive.zip
 .*_mta_build_tmp
-
-# auto generated wildcard
-uimodule/.env
-# auto generated wildcard
-myProfile/uimodule/.env
-
-uimodule/webapp/env.json

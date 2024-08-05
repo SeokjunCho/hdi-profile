@@ -1,13 +1,13 @@
 {
-    "editor.autoSave": "off",
-    "UI5LanguageAssistant.codeAssist.experimental": true,
-    "javascript.format.insertSpaceAfterConstructor": true,
-    "eslint.autoFixOnSave": true,
-    "editor.codeActionsOnSave": {
-        "source.fixAll.eslint": true
-    },
-    "actions": [],
-    "[xml].editor.defaultFormatter": "sapse.sap-ux-annotation-modeler-extension",
-    "[json].editor.defaultFormatter": "esbenp.prettier-vscode",
-    "[javascript].editor.defaultFormatter": "vscode.typescript-language-features"
+	"editor.autoSave": "off",
+	"UI5LanguageAssistant.codeAssist.experimental": true,
+	"javascript.format.insertSpaceAfterConstructor": true,
+	"eslint.autoFixOnSave": true,
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": "explicit"
+	},
+	"actions": [],
+	"[xml].editor.defaultFormatter": "sapse.sap-ux-annotation-modeler-extension",
+	"[json].editor.defaultFormatter": "esbenp.prettier-vscode",
+	"[javascript].editor.defaultFormatter": "vscode.typescript-language-features"
 }

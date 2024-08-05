@@ -9,17 +9,6 @@ sap.ui.define(
 
 		return Controller.extend("com.hdi.myProfile.controller.Result", {
 			onInit: function () {
-				/*
-                const oFilter = this.byId("filterBar");
-
-                oFilter.addEventDelegate({
-                    onBeforeRendering: function () {
-                        oFilter._oSearchButton.setText("조회하기");
-                        oFilter.removeEventDelegate(this);
-                    },
-                });
-                */
-
 				this._pdfViewer = new PDFViewer();
 				this.getView().addDependent(this._pdfViewer);
 				this._pdfUrlMap = new Map();
@@ -28,6 +17,9 @@ sap.ui.define(
 			},
 
 			onAfterRendering: async function () {
+				// this._pdfViewer = new PDFViewer();
+				// this.getView().addDependent(this._pdfViewer);
+
 				await this.getOwnerComponent().getAuth();
 
 				if (!this.getOwnerComponent()._gIsNormalAccess) {
@@ -36,25 +28,24 @@ sap.ui.define(
 					this.loadFragment("NoLoginInfoPage");
 				} else {
 					// Normal Case
-					//console.log("Normal Login Case ");
 					const oParam = {
 						userId: this.getOwnerComponent()._gUserId,
 						token: this.getOwnerComponent()._gToken,
 					};
 					const oAuth = await this.connect("POST", "user/auth", oParam);
-					//console.log("=== oAuth ===");
-					//console.log(oAuth);
 
 					if (oAuth !== "AUTH_ACCESS") {
 						this.loadFragment("AuthCheckPage");
 					}
 				}
 			},
-
+			// 검색 방법 변경 시 발생 Event
 			onChangeCategory: function (oEvent) {
 				const sKey = oEvent.getParameters().selectedItem.getKey();
-				const oNameSearchField = this.byId("nameSearchField");
-				const oBasicSearchField = this.byId("basicSearchField");
+
+				const oNameSearchField = this.byId("nameSearchField"); // 성명 Search Field
+				const oBasicSearchField = this.byId("basicSearchField"); // 그 외 Search Field
+
 				oNameSearchField.setValue("");
 				oBasicSearchField.setValue("");
 
@@ -74,45 +65,31 @@ sap.ui.define(
 					oBasicSearchField.setVisible(true);
 				}
 			},
-
+			// [사번 Upload] 버튼 클릭 시
 			onPressUpload: async function (oEvent) {
-				//console.log("onPressUpload");
 				// 전역 배열 초기화
 				this.aUserIds = [];
 
 				//Open Fragment
 				await this.loadFragment("Upload");
-				//console.log("onPressUpload Finish");
 			},
-
+			// Upload.fragment 함수 - 사번 붙여넣기 동작 시
 			onPasteData: function (oEvent) {
-				//console.log("onPasteData!!");
-				//console.log(oEvent.getParameters());
-
 				const aPaste = oEvent.getParameters().data;
-				//console.log(aPaste);
 
 				let aUserId = [];
 				let aPasteData = [];
 
 				aPaste.forEach((aData, idx) => {
-					//console.log(idx);
-					//console.log(aData);
-
 					for (let userId of aData) {
-						//if (!isNaN(userId) && userId !== "") {
 						if (userId !== "") {
 							aUserId.push({ PERSON_ID: userId });
 						}
 					}
 				});
-
-				//console.log("aUserId : ");
-				//console.log(aUserId);
-
+				// 중복 제거 후 배열로 변경
 				const aSetUserId = [...new Set(aUserId.map(JSON.stringify))].map(JSON.parse);
 
-				//console.log(aSetUserId);
 				this.aUserIds = aSetUserId;
 
 				aSetUserId.forEach((obj, idx) => {
@@ -130,12 +107,12 @@ sap.ui.define(
 
 				let oModel = new JSONModel();
 				oModel.setProperty("/pasteData", aPasteData);
+
 				oTable.setModel(oModel);
 				oTitle.setText(`대상자 (${aSetUserId.length})`);
 			},
-
+			// 인원 검색 실행
 			onSearch: async function (oEvent) {
-				//console.log("onSearch!");
 				const oParameter = oEvent.getParameters();
 				// Clear 버튼 클릭 시, Search 로직 타지 않음
 				if (oParameter.clearButtonPressed) return;
@@ -172,11 +149,6 @@ sap.ui.define(
 					}
 				}
 
-				//console.log(sCategorySelectedKey);
-				//console.log(sQuery);
-
-				//console.log("gUserId from user search!");
-				//console.log(oComponent._gUserId);
 				let oParam = {
 					userId: oComponent._gUserId, // 로그인 사용자 Person ID
 					token: oComponent._gToken, // 로그인 사용자 토근
@@ -187,8 +159,8 @@ sap.ui.define(
 					aUserId: [],
 					orgeh: "", // 조직 이름
 					ename: "", // 직원 이름
-					status: aStatusMCBKeys,
-					lang: oComponent._gLang,
+					status: aStatusMCBKeys, // 재직구분 선택 값 배열
+					lang: oComponent._gLang, // 언어
 				};
 
 				if (sCategorySelectedKey === "ename") {
@@ -211,7 +183,7 @@ sap.ui.define(
 				if (aResult === "AUTH_ERR") {
 					aResult = [];
 				}
-
+				// 국가에 따른 이름 규칙 적용
 				for (const item of aResult) {
 					// 한/중/일 은 이름을 Last + First
 					if (["KOR", "CHN", "JPN"].some((el) => el === item.nationality)) {
@@ -226,6 +198,7 @@ sap.ui.define(
 
 				const oTable = this.byId("resultTable");
 				const oTitle = this.byId("resultTableTitle");
+
 				let oModel = new JSONModel();
 				oModel.setProperty("/data", aResult);
 
@@ -234,7 +207,7 @@ sap.ui.define(
 				const sResultTxt = this.getView().getModel("i18n").getResourceBundle().getText("searchResult"); //조회결과
 				oTitle.setText(`${sResultTxt} (${aResult.length})`);
 			},
-
+			// 인사프로필 조회
 			onPressProfileOpen: async function (oEvent) {
 				const oComponent = this.getOwnerComponent();
 				//Circle 보고서 조회 부분 참고
@@ -246,13 +219,13 @@ sap.ui.define(
 					const oUserParam = {
 						personId: oTargetObject.personId,
 						userId: oTargetObject.userId,
-						isPrimary: oTargetObject.isPrimary,
 					};
 
 					const key = `${oTargetObject.state}_${oTargetObject.userId}_${oComponent._gLang}`;
 					let pdfUrl = "";
 
 					if (this._pdfUrlMap.has(key)) {
+						// 한번 불러왔던 PDF는 저장해둔 후 다시 불러오지 않음
 						pdfUrl = this._pdfUrlMap.get(key);
 					} else {
 						const oParam = {
@@ -272,6 +245,7 @@ sap.ui.define(
 						this._pdfUrlMap.set(key, pdfUrl);
 					}
 					jQuery.sap.addUrlWhitelist("blob");
+
 					this._pdfViewer.setShowDownloadButton(false);
 					this._pdfViewer.setSource(pdfUrl);
 					this._pdfViewer.setTitle(`${oTargetObject.lastName} ${oTargetObject.firstName} ${oTargetObject.title} Profile`);
@@ -281,7 +255,8 @@ sap.ui.define(
 					MessageBox.error("보고서 생성 중 오류가 발생했습니다. 담당자에게 문의해주세요");
 				}
 			},
-
+			// [프로필 다운로드] 버튼 클릭 시 Event
+			// 프로필 다중 다운로드
 			onPressReportDownload: async function (oEvent) {
 				const oComponent = this.getOwnerComponent();
 				const oTable = this.byId("resultTable");
@@ -302,7 +277,6 @@ sap.ui.define(
 					let oUserParam = {
 						personId: oObj.personId,
 						userId: oObj.userId,
-						isPrimary: oObj.isPrimary,
 					};
 					aPersonId.push(oUserParam);
 				}
@@ -341,9 +315,6 @@ sap.ui.define(
 					return Promise.reject(err);
 				}
 			},
-
-			// 재직구분 formatter
-
 			// "대상자 검색" 팝업 - 검색 필터
 			filterGlobally: function (oEvent) {
 				let sQuery = oEvent.getParameter("query");
