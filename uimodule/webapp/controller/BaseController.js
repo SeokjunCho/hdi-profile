@@ -76,7 +76,6 @@ sap.ui.define(
 			},
 
 			loadFragment: async function (param) {
-				//console.log("loadFragment");
 				if (param === "NoLoginInfoPage") {
 					if (!this._oNoLoginInfoPage) {
 						Fragment.load({
@@ -117,7 +116,6 @@ sap.ui.define(
 						);
 					}
 				} else if (param === "Upload") {
-					//console.log(this._oUploadPage);
 					if (!this._oUploadPage) {
 						Fragment.load({
 							name: "com.hdi.myProfile.view.fragment.Upload",
@@ -128,7 +126,6 @@ sap.ui.define(
 								this.getView().addDependent(this._oUploadPage);
 
 								const oMsgStrip = sap.ui.getCore().byId("uploadMsgStrip");
-								//console.log(oMsgStrip);
 								oMsgStrip.setText(
 									"1. Excel, 메모장 등을 이용하여 조회하고자 하는 사번을 <br> 입력 후 마우스로 드래그 하여 <strong>복사(Ctr+C)</strong>합니다.<br> 2. 본 화면에서 <strong>붙여넣기(Ctr+V)</strong> 키를 누르면 데이터가 로드<br>됩니다.<br>3. 아래 표에서 내용 확인 후 [조회하기]버튼을 눌러 주세요."
 								);
@@ -139,7 +136,7 @@ sap.ui.define(
 					} else {
 						const oTable = sap.ui.getCore().byId("uploadTable");
 						const oTitle = sap.ui.getCore().byId("resultTitle");
-						//console.log(oTitle);
+
 						let oModel = new JSONModel();
 						oModel.setProperty("/pasteData", []);
 						oTable.setModel(oModel);
@@ -177,10 +174,6 @@ sap.ui.define(
 					} else {
 						URL = "http://localhost:8080/" + sUrl;
 					}
-
-					//console.log("Call from BaseController.js");
-					//console.log(`URL : ${URL}`);
-					//console.log(`METHOD : ${sMethod}`);
 
 					jQuery.ajax({
 						url: URL,
